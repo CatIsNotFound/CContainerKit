@@ -1,0 +1,10 @@
+@PACKAGE_INIT@
+
+include("${CMAKE_CURRENT_LIST_DIR}/@PROJECT_NAME@Targets.cmake")
+
+set(CContainerKit_INCLUDE_DIRS "@CContainerKit_INCLUDE_DIRS@")
+set(CContainerKit_LIB_DIR "@CContainerKit_LIB_DIR@")
+set(CContainerKit_Resource_DIR "@CContainerKit_Resource_DIR@")
+LINK_DIRECTORIES(${CContainerKit_LIB_DIR})
+set(CContainerKit_SHARED_LIBRARIES CContainerKit_shared)
+set(CContainerKit_STATIC_LIBRARIES CContainerKit_static)
