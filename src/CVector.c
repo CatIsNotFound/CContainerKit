@@ -96,10 +96,6 @@ CArray _vectorToArray(CVector* vector, bool delete_vector, bool* ok) {
     return new_array;
 }
 
-CVector _vectorCopyFromArray(CArray* array) {
-    return _arrayToVector(array, false, NULL);
-}
-
 void _expandVector(CVector *vector) {
     size_t new_size = (vector->capacity == 0 ? 2 : vector->capacity * 2);
     _resizeVector(vector, new_size);

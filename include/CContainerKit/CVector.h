@@ -14,7 +14,6 @@ CVector vectorInitType(dataType data_type, size_t length);
 CVector vectorList(size_t length, ...);
 CVector _arrayToVector(CArray* array, bool delete_array, bool* ok);
 CArray _vectorToArray(CVector* vector, bool delete_vector, bool* ok);
-CVector _vectorCopyFromArray(CArray* array);
 void _expandVector(CVector* vector);
 void _resizeVector(CVector* vector, size_t new_size);
 void _destroyVector(CVector* vector);
@@ -45,7 +44,7 @@ CVector _vectorSubVec(CVector* vector, size_t start_pos, uint32_t count);
 #define vecPopFront(vector)                      _vectorRemove(&vector, 0, 1)
 #define vecClear(vector)                         _vectorClear(&vector)
 #define vecIsContain(vector, key, start_pos)     _vectorIsElementContain(&vector, key, start_pos)
-#define vecIndexOf(vector, key)                  _vectorIndexOf(&vector, key)
+#define vecIndexOf(vector, key, start_pos)       _vectorIndexOf(&vector, key, start_pos)
 #define vecAt(vector, index)                     _vectorAt(&vector, index)
 #define vecModify(vector, index, value)          _vectorModify(&vector, index, value)
 #define vecFill(vector, start_pos, count, value) _vectorFill(&vector, start_pos, count, value)

@@ -354,17 +354,17 @@ void _printVarData(CVariant* variant) {
             else printf("(NULL)");
             break;
         case TYPE_POINTER:
-            printf("%p (pointer)", _varPtr(variant)); break;
+            printf("%#x (pointer)", (uint32_t)(uint64_t)_varPtr(variant)); break;
         case TYPE_STRING:
             printf("%s", _varStringData(variant)); break;
         case TYPE_STRUCT:
-            printf("%p (struct)", _varPtr(variant)); break;
+            printf("%#x (struct)", (uint32_t)(uint64_t)_varPtr(variant)); break;
         case TYPE_ENUM:
             printf("%d (enum)", _varUInt8Value(variant)); break;
         case TYPE_FUNCTION:
-            printf("%p (function)", _varPtr(variant)); break;
+            printf("%#x (function)", (uint32_t)(uint64_t)_varPtr(variant)); break;
         case TYPE_CUSTOM:
-            printf("%p (custom)", _varPtr(variant)); break;
+            printf("%#x (custom)", (uint32_t)(uint64_t)_varPtr(variant)); break;
         default:
             printf("(NULL)"); break;
     }

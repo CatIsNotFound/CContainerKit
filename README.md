@@ -15,9 +15,9 @@ A collection of C containers based on the C11 standard.
 | Container name | Completion progress | Description |
 |----------|----------|--------------|
 | CVariant | 20% | Variables of any type |
-| CArray | 30% | Static array |
-| CVector | 45% | Dynamic array |
-| CString | 15% | String |
+| CArray | 20% | Static array |
+| CVector | 50% | Dynamic array |
+| CString | 20% | String |
 
 ## Containers that are planned to be completed in the future
 - CStack: stack.

@@ -8,7 +8,7 @@ typedef struct Date {
     uint8_t mouth, day;
 } Date;
 
-// Test 1: CVector initialization test
+// Test 1: CVector initialization test.
 static void cvec_test1() {
     printf("[Test1]\n");
     printf("vector1: ");
@@ -64,7 +64,7 @@ static void cvec_test2() {
     destroyVector(vec1);
 }
 
-// Test 3:
+// Test 3: Addition and deletion of elements.
 static void cvec_test3() {
     printf("[Test3]\n");
     CVector vector = vectorList(0);
@@ -84,18 +84,89 @@ static void cvec_test3() {
     }
     printf("\n");
 
+    Date d1 = {2025, 07, 11};
+    Date d2 = {2024, 11, 8};
     CArray arr_front = arrayList(3, varInt(10), varInt(20), varInt(30)),
+           arr_middle = arrayList(2, varStruct(d1, "Date"), varStruct(d2, "Date")),
            arr_back = arrayList(3, varString("I"), varString("Love"), varString("You"));
+    vecInsertFromArray(vector, 1, arr_middle);
     vecPushFrontArray(vector, arr_front);
     vecPushBackArray(vector, arr_back);
+    vecRemove(vector, 1, 4);
     forEachVecElements(var, vector) {
+        printf("[%zu] ", i);
         printVarData(var);
         printf(" ");
     }
-    printf("\n");
+    printf("| Length: %d, Capacity: %d\n", vector.length, vector.capacity);
+    vecClear(vector);
+    printf("(Clear) Length: %d, Capacity: %d\n", vector.length, vector.capacity);
     destroyArray(arr_front);
+    destroyArray(arr_middle);
     destroyArray(arr_back);
     destroyVector(vector);
+}
+
+// Test 4: Find and replace elements.
+static void cvec_test4() {
+    printf("[Test 4]\n");
+    CVariant key = varInt(20), not_found_key = varInt(40), find_key = varInt(50);
+    CVector vec = vectorList(3, varInt(30), key, find_key);
+    printf("Element 30 is%s in vector.\n", (vecIsContain(vec, key, 0) ? "" : "n't"));
+    printf("Element 40 is%s in vector.\n", (vecIsContain(vec, not_found_key, 0) ? "" : "n't"));
+    printf("The index of element 50 in the vector is %lld.\n", vecIndexOf(vec, find_key, 0));
+    vecModify(vec, 2, not_found_key);
+    printf("The index of 2 in the vector is ");
+    CVariant v = vecAt(vec, 2);
+    printVarData(v);
+    print(".");
+    destroyVector(vec);
+}
+
+// Test 5: A single vector fills multiple elements.
+static void cvec_test5() {
+    printf("[Test 5]\n");
+    CVariant var = varInt(0);
+    CVector vec = vectorList(5, varInt(1), varInt(2), varInt(3), varInt(4), varInt(5));
+    vecFill(vec, 2, 2, var);
+    forEachVecElements(var, vec) {
+        printf("[%zu] ", i);
+        printVarData(var);
+        printf(" ");
+    }
+    printLine();
+    vecFillAll(vec, varInt(100));
+    forEachVecElements(var, vec) {
+        printf("[%zu] ", i);
+        printVarData(var);
+        printf(" ");
+    }
+    printLine();
+    destroyVector(vec);
+}
+
+// Test 6: Get a sub-vector from a single vector.
+static void cvec_test6() {
+    printf("[Test 6]\n");
+    CVector origin_vec = vectorList(5, varInt(1), varInt(2), varInt(3), varInt(4), varInt(5));
+    CVector sub_vec = vecSubVector(origin_vec, 1, 3);
+    CVariant var;
+    printf("origin_vector: ");
+    forEachVecElements(var, origin_vec) {
+        printf("[%zu] ", i);
+        printVarData(var);
+        printf(" ");
+    }
+    printLine();
+    printf("sub_vector: ");
+    forEachVecElements(var, sub_vec) {
+        printf("[%zu] ", i);
+        printVarData(var);
+        printf(" ");
+    }
+    printLine();
+    destroyVector(sub_vec);
+    destroyVector(origin_vec);
 }
 
 static void cvector_test() {
@@ -103,6 +174,9 @@ static void cvector_test() {
     cvec_test1();
     cvec_test2();
     cvec_test3();
+    cvec_test4();
+    cvec_test5();
+    cvec_test6();
 }
 
 #endif //CVECTORSUITE_CVECTOR_TEST_H
