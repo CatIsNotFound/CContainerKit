@@ -65,7 +65,7 @@ const char* _getTypeName(dataType d_type);
 const char* _varTypeName(CVariant* variant);
 #define varTypeName(variant)    _varTypeName(&variant)
 
-CVariant _varEmpty();
+CVariant _varEmpty(void);
 CVariant _varBool(bool value);
 CVariant _varInt8(int8_t value);
 CVariant _varUInt8(uint8_t value);
@@ -112,17 +112,9 @@ void _varUIntModifyValue(CVariant* variant, uint64_t new_value);
 #define varIntModifyData(variant, new_value)  _varIntModifyValue(&variant, new_value)
 #define varUIntModifyData(variant, new_value) _varUIntModifyValue(&variant, new_value)
 
-static void varDestroyPointer(CVariant* variant) {
-    if (variant->data_type == TYPE_POINTER) {
-        free(variant->value);
-    }
-}
-
-static void varDestroyCustom(CVariant* variant) {
-    if (variant->data_type == TYPE_CUSTOM) {
-        ((VCustom*)(variant->value))->destructor(variant->value);
-    }
-}
+void _varDestroyPointer(CVariant* variant);
+void _varDestroyStruct(CVariant* variant);
+void _varDestroyCustom(CVariant* variant);
 
 bool _varBoolValue(CVariant* variant);
 int8_t _varInt8Value(CVariant* variant);

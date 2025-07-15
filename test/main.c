@@ -2,6 +2,7 @@
 #include "unit_tests/Test_CArray.h"
 #include "unit_tests/Test_CVector.h"
 #include "unit_tests/Test_CString.h"
+#include "unit_tests/Test_CDebug.h"
 #include <string.h>
 
 int main(int argc, const char* argv[]) {
@@ -21,6 +22,8 @@ int main(int argc, const char* argv[]) {
         CString_test();
     } else if (!strcmp(argv[1], "vector")) {
         CVector_test();
+    } else if (!strcmp(argv[1], "debug")) {
+        CDebug_test();
     } else {
         printf("Error: Unknown test case name: %s!\n", argv[1]);
     }

@@ -2,6 +2,7 @@
 #pragma once
 #ifndef CCONTAINERKIT_CSTRING_H
 #define CCONTAINERKIT_CSTRING_H
+
 #include "CVector.h"
 
 typedef struct String {

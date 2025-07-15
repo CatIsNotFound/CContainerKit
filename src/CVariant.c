@@ -55,7 +55,7 @@ const char* _varTypeName(CVariant* variant) {
     }
 }
 
-CVariant _varEmpty() {
+CVariant _varEmpty(void) {
     CVariant new_variant;
     new_variant.data_type = TYPE_NULL;
     new_variant.value = (void*)0;
@@ -183,13 +183,13 @@ CVariant _varEnum(int8_t value, const char *type_name) {
 CVariant _varFunction(void (*value)(void*)) {
     CVariant new_variant;
     new_variant.data_type = TYPE_ENUM;
-    new_variant.value = (void*)value;
+    new_variant.value = (void *) value;
     return new_variant;
 }
 
 CVariant _varCustom(void *value, const char *type_name, void (*destructor)(void *)) {
     CVariant new_variant;
-    new_variant.data_type = TYPE_ENUM;
+    new_variant.data_type = TYPE_CUSTOM;
     VCustom* new_custom = malloc(sizeof(VCustom));
     new_custom->data = value;
     new_custom->type_name = type_name;
@@ -212,6 +212,31 @@ void _varIntModifyValue(CVariant* variant, int64_t new_value) {
 void _varUIntModifyValue(CVariant* variant, uint64_t new_value) {
     if (variant->data_type >= TYPE_UINT8 && variant->data_type <= TYPE_UINT64) {
         variant->value = (void*)new_value;
+    }
+}
+
+void _varDestroyPointer(CVariant* variant) {
+    if (variant->data_type == TYPE_POINTER) {
+        free(variant->value);
+    }
+}
+
+void _varDestroyStruct(CVariant* variant) {
+    if (variant->data_type == TYPE_STRUCT) {
+        if (variant->value) {
+            VStruct* v_struct = (VStruct*)(variant->value);
+            free(v_struct);
+        }
+    }
+}
+
+void _varDestroyCustom(CVariant* variant) {
+    if (variant->data_type == TYPE_CUSTOM) {
+        if (variant->value) {
+            VCustom *custom = (VCustom *) (variant->value);
+            custom->destructor(variant->value);
+            free(custom);
+        }
     }
 }
 

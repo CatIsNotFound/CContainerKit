@@ -18,7 +18,7 @@ add_library(${PROJECT_NAME} STATIC ${LIB_SOURCES}
         CVector.c
         ../include/CContainerKit/CDebug.h
         CDebug.c
-        ../include/CContainerKit/CContainerKit.h
+        ../include/CContainerKit.h
         ../include/CContainerKit/CString.h
         CString.c
 )
