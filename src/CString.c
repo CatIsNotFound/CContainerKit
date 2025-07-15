@@ -1,5 +1,11 @@
 #include "CContainerKit/CString.h"
-
+#ifndef HAVE_STRSET
+char* strset(char *s, int c) {
+    size_t len = strlen(s);
+    memset(s, c, len);
+    return s;
+}
+#endif
 CString string(const char* str) {
     CString new_str;
     size_t new_length = strlen(str);
