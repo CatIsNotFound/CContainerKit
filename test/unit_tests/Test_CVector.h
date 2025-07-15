@@ -119,7 +119,7 @@ static void cvec_test4() {
     printf("The index of 2 in the vector is ");
     CVariant v = vecAt(vec, 2);
     printVarData(v);
-    print(".");
+    printf(".");
     destroyVector(vec);
 }
 
@@ -169,7 +169,7 @@ static void cvec_test6() {
     destroyVector(origin_vec);
 }
 
-static void cvector_test() {
+static void CVector_test() {
     printf("=== CVector Test ===\n");
     cvec_test1();
     cvec_test2();

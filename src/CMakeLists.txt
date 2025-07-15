@@ -13,14 +13,14 @@ add_library(${PROJECT_NAME} STATIC ${LIB_SOURCES}
         ../include/CContainerKit/CVariant.h
         ../include/CContainerKit/CArray.h
         CVariant.c
-        ../include/CContainerKit/CString.h
-        CString.c
         CArray.c
         ../include/CContainerKit/CVector.h
         CVector.c
         ../include/CContainerKit/CDebug.h
         CDebug.c
         ../include/CContainerKit/CContainerKit.h
+        ../include/CContainerKit/CString.h
+        CString.c
 )
 
 target_include_directories(${PROJECT_NAME}

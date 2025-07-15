@@ -58,7 +58,7 @@ static void carr_test3(void) {
     destroyArray(arr);
 }
 
-static void carray_test(void) {
+static void CArray_test(void) {
     printf("=== CArray Test ===\n");
     carr_test1();
     carr_test2();

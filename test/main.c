@@ -1,23 +1,26 @@
 
-#include "unit_tests/carray_test.h"
-#include "unit_tests/cvector_test.h"
+#include "unit_tests/Test_CArray.h"
+#include "unit_tests/Test_CVector.h"
+#include "unit_tests/Test_CString.h"
 #include <string.h>
 
 int main(int argc, const char* argv[]) {
     if (argc < 2) {
         printf("Usage: %s [TEST_CASE]\n", argv[0]);
         printf("Avaliable Test case: \n");
-        printf("- arrayList\n"
+        printf("- array\n"
                "- string\n"
                "- variant\n"
-               "- vectorList\n"
-               "e.g: To test [CArray], just type: %s arrayList\n", argv[0]);
+               "- vector\n"
+               "e.g: To test [CArray], just type: %s array\n", argv[0]);
         return 1;
     }
-    if (!strcmp(argv[1], "arrayList")) {
-        carray_test();
+    if (!strcmp(argv[1], "array")) {
+        CArray_test();
+    } else if (!strcmp(argv[1], "string")) {
+        CString_test();
     } else if (!strcmp(argv[1], "vector")) {
-        cvector_test();
+        CVector_test();
     } else {
         printf("Error: Unknown test case name: %s!\n", argv[1]);
     }

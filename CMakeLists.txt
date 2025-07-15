@@ -19,6 +19,12 @@ endif()
 add_subdirectory(src)
 add_subdirectory(test)
 
+if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+    set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install" CACHE PATH "" FORCE)
+endif()
+message(STATUS "CMAKE_INSTALL_PREFIX : ${CMAKE_INSTALL_PREFIX}")
+
+
 include(GNUInstallDirs)
 install(
     FILES ${CMAKE_BINARY_DIR}/src/${PROJECT_NAME}Config.cmake

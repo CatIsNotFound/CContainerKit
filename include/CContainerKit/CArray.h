@@ -1,4 +1,5 @@
 
+#pragma once
 #ifndef CVECTORSUITE_CARRAY_H
 #define CVECTORSUITE_CARRAY_H
 #include "CVariant.h"
@@ -30,5 +31,9 @@ bool _arrayModify(CArray* array, size_t index, CVariant value);
 #define forEachArrElements(item, array) \
     item = array.elements[0];           \
     for (size_t i = 0; i < array.length; ++i, item = array.elements[i])
+
+#define forEachArrElePtr(item, array) \
+    item = array->elements[0];           \
+    for (size_t i = 0; i < array->length; ++i, item = array->elements[i])
 
 #endif //CVECTORSUITE_CARRAY_H

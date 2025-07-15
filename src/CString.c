@@ -1,164 +1,213 @@
 #include "CContainerKit/CString.h"
 
-size_t _CStrLength(const char *string) {
-    size_t len = 0;
-    while (string[len++] != '\0');
-    return len;
-}
-
-char * _CStrCopy(const char* str, size_t* len) {
-    size_t s_len = _CStrLength(str);
-    if (len) *len = s_len;
-    char* c_str = (char*) calloc(s_len + 1, sizeof(char));
-    if (!c_str) {
-        if (len) *len = 0;
-        return NULL;
-    }
-    memcpy_s(c_str, sizeof(char), str, s_len);
-    c_str[s_len] = '\0';
-    return c_str;
-}
-
-char * _CStrSub(const char* str, size_t start, size_t end, size_t* len) {
-    uint64_t real_len = end - start + 1;
-    char c_str[real_len];
-    size_t i = start;
-    while (str[i] != '\0' && i < end) {
-        c_str[i - start] = str[i];
-        i += 1;
-    }
-    c_str[real_len] = '\0';
-    if (len) *len = real_len;
-    return c_str;
-}
-
-const char *_CStrUpper(const char *str) {
-    uint64_t real_len = _CStrLength(str);
-    char new_str[real_len];
-    size_t i = 0;
-    do {
-        if (str[i] >= 'a' && str[i] <= 'z') {
-            new_str[i] = (char)(str[i] - 32);
-        } else {
-            new_str[i] = str[i];
-        }
-    } while (str[i++] != '\0');
-    return new_str;
-}
-
-const char *_CStrLower(const char *str) {
-    size_t real_length = _CStrLength(str);
-    char new_str[real_length];
-    size_t i = 0;
-    do {
-        if (str[i] >= 'A' && str[i] <= 'Z') {
-            new_str[i] = (char)(str[i] + 32);
-        } else {
-            new_str[i] = str[i];
-        }
-    } while (str[i] != '\0');
-    return new_str;
-}
-
 CString string(const char* str) {
     CString new_str;
-    new_str.c_str = _CStrCopy(str, &new_str.length);
+    size_t new_length = strlen(str);
+    _allocateData(&new_str, new_length * 2);
+    strcpy(new_str.data, str);
+    new_str.length = new_length;
     return new_str;
 }
 
-void strInit(uint32_t length, char default_char) {
+CString strInit(const char ch, size_t length) {
     CString new_str;
-    char c_str[length];
+    _allocateData(&new_str, length * 2);
     for (size_t i = 0; i < length; ++i) {
-        c_str[i] = default_char;
+        new_str.data[i] = ch;
     }
-    c_str[length] = '\0';
+    new_str.data[length] = '\0';
     new_str.length = length;
+    return new_str;
 }
 
-void strNewString(CString *string, const char *c_str) {
-    if (string) _CStrCopy(c_str, &string->length);
+void _allocateData(CString* string, size_t new_length) {
+    string->data = (char *) calloc(new_length + 1, sizeof(char));
+    string->capacity = new_length + 1;
 }
 
-bool strCompare(CString *str1, CString *str2, bool capital_sense) {
-    if (!str1 || !str2) return false;
-    if (str1->length != str2->length) return false;
-    char *comp1, *comp2;
-    if (!capital_sense) {
-        comp1 = _CStrLower(str1->c_str);
-        comp2 = _CStrLower(str2->c_str);
+void _destroyData(CString* string) {
+    if (string->data) {
+        free(string->data);
     }
-    for (size_t i = 0; i < str1->length; ++i) {
-        if (comp1[i] != comp2[i]) return false;
-    }
-    return true;
 }
 
-bool strCompareWithCStr(CString *str1, const char *str2, bool capital_sense) {
-    static size_t len;
-    if (!str1 || !str2) return false;
-    char *comp1, *comp2;
-    if (!capital_sense) {
-        comp1 = _CStrLower(str1->c_str);
-        comp2 = _CStrLower(str2);
+void _destroyString(CString* string) {
+    _destroyData(string);
+    string->data = NULL;
+    string->length = 0;
+}
+
+void _strFillZero(CString* string) {
+    strset(string->data, 0);
+}
+
+
+CString _strSub(CString* str, uint32_t start_pos, uint32_t count) {
+    char datas[str->length];
+    strset(datas, 0);
+    for (size_t i = 0; i < count; ++i) {
+        datas[i] = str->data[start_pos + i];
+    }
+    CString new_str = string(datas);
+    return new_str;
+}
+
+CString strList(const char* split, uint32_t count, ...) {
+    va_list s_list;
+    va_start(s_list, count);
+    CArray str_array = arrayInitType(TYPE_STRING, count);
+    size_t length = 0;
+    for (size_t i = 0; i < count; ++i) {
+        const char* str = va_arg(s_list, const char*);
+        length += strlen(str);
+        arrayModify(str_array, i, varString(str));
+    }
+    va_end(s_list);
+    CString new_str = strInit('\0', (length + str_array.length - 1));
+    CVariant str;
+    forEachArrElements(str, str_array) {
+        strcat(new_str.data, varStringData(str));
+        if (i < str_array.length - 1) {
+            strcat(new_str.data, split);
+            length += strlen(split);
+        }
+    }
+    destroyArray(str_array);
+    return new_str;
+}
+
+void _strCopyStr(CString *string, const char *buffer) {
+    if (strlen(buffer) + 1 >= string->capacity) {
+        _destroyData(string);
+        _allocateData(string, strlen(buffer) * 2);
+    }
+    _strFillZero(string);
+    strcpy(string->data, buffer);
+    string->length = strlen(buffer);
+}
+
+void _strInsertStr(CString *string, uint32_t index, const char *buffer) {
+    if (index >= string->length) index = string->length;
+    uint32_t s_len = strlen(string->data),
+             b_len = strlen(buffer),
+             new_length = s_len + b_len;
+    if (new_length + 1 >= string->capacity) {
+        char old_str[s_len + 1];
+        strcpy(old_str, string->data);
+        _destroyData(string);
+        _allocateData(string, (new_length) * 2);
+        strcpy(string->data, old_str);
+    }
+    string->length = new_length;
+    string->data[string->length] = '\0';
+
+    for (size_t i = 0; i < s_len - index; ++i) {
+        string->data[new_length - i - 1] = string->data[s_len - i - 1];
+    }
+    string->data[new_length] = '\0';
+    for (size_t i = 0; i < strlen(buffer); ++i) {
+        string->data[index + i] = buffer[i];
+    }
+}
+
+void _strRemoveStr(CString *string, uint32_t index, uint32_t count) {
+    uint32_t ed_pos = (index + count >= string->length ? string->length : index + count);
+    for (uint32_t i = index; i < ed_pos; ++i) {
+        string->data[i] = '\0';
+    }
+    uint32_t replace_idx_pos = index;
+    for (uint32_t i = ed_pos; i < string->length; ++i) {
+        string->data[replace_idx_pos++] = string->data[i];
+    }
+    string->length -= ed_pos - index;
+    string->data[string->length] = '\0';
+}
+
+bool _strIsEqual(CString* string, const char* buffer, bool case_sensitive) {
+    if (case_sensitive) {
+        return strcmp(string->data, buffer) == 0;
     } else {
-        comp1 = str1->c_str;
-        comp2 = _CStrCopy(str2, &len);
+        return strcasecmp(string->data, buffer) == 0;
     }
-    for (size_t i = 0; i < str1->length; ++i) {
-        if (comp1[i] != comp2[i]) return false;
+}
+
+bool _strIsContain(CString* string, const char* buffer, bool case_sensitive) {
+    size_t buf_len = strlen(buffer);
+    char s[buf_len + 1];
+    for (size_t i = 0; i <= string->length - buf_len; ++i) {
+        for (size_t j = 0; j < buf_len; ++j) {
+            s[j] = string->data[i + j];
+        }
+        s[buf_len] = '\0';
+        if (case_sensitive) {
+            if (!strcmp(s, buffer)) return true;
+        } else {
+            if (!strcasecmp(s, buffer)) return true;
+        }
     }
-    return true;
+    return false;
 }
 
-void strInsertOne(CString* str, size_t index, char ch) {
-    for (size_t i = 0; i <= str->length - index; ++i) {
-        // str->c_str[str->length - i] = str->c_str[str->length - i - 1];
+void _strUpper(CString* string) {
+    for (uint32_t i = 0; i < string->length; ++i) {
+        if (string->data[i] >= 'a' && string->data[i] <= 'z') {
+            string->data[i] -= ' ';
+        }
     }
-//    str->c_str[index] = ch;
-    str->length += 1;
 }
 
-void strPushBack(CString* str, char ch) {
-    strInsertOne(str, str->length, ch);
-}
-
-void strPushFront(CString* str, char ch) {
-    strInsertOne(str, 0, ch);
-}
-
-void strRemoveOne(CString* str, size_t index) {
-    for (size_t i = index; i < str->length; ++i) {
-//        str->c_str[i] = str->c_str[i + 1];
+void _strLower(CString* string) {
+    for (uint32_t i = 0; i < string->length; ++i) {
+        if (string->data[i] >= 'A' && string->data[i] <= 'Z') {
+            string->data[i] += ' ';
+        }
     }
-//    str->c_str[str->length - 1] = '\0';
-    str->length -= 1;
 }
 
-void strPopBack(CString* str) {
-    strRemoveOne(str, str->length - 1);
+CVector _splitToVector(CString* str, const char split) {
+    CVector find_idx = vectorInit(0);
+    for (size_t i = 0; i < str->length; ++i) {
+        if (str->data[i] == split) {
+            vecPushBack(find_idx, varULongLong(i));
+        }
+    }
+    if (find_idx.length == 0) {
+        CVector vector = vectorInit(0);
+        vecPushBack(vector, varString(str->data));
+        destroyVector(find_idx);
+        return vector;
+    }
+    vecPushBack(find_idx, varULongLong(strlen(str->data) + 1));
+    size_t idx = 0;
+    CVector vector = vectorInit(find_idx.length);
+    for (size_t i = 0; i < find_idx.length; ++i) {
+        char* sub_str = (char*)calloc(str->length + 1, sizeof(char));
+        uint64_t key_pos = varULongLongData(find_idx.elements[i]);
+        uint64_t pos = 0;
+        for (uint64_t j = idx; j < key_pos; ++j) {
+            sub_str[pos++] = str->data[j];
+        }
+        sub_str[pos] = '\0';
+        CVariant var_str = varString(sub_str);
+        vecModify(vector, i, var_str);
+        idx = key_pos + 1;
+    }
+    destroyVector(find_idx);
+
+    CVariant v;
+    forEachVecElements(v, vector) {
+        printf("[%zu] %s\n", i, varStringData(v));
+    }
+    return vector;
 }
 
-void strPopFront(CString* str) {
-    strRemoveOne(str, 0);
+CVector _strToVector(CString* str) {
+    CVector vec = vectorInitType(TYPE_INT8, str->length);
+    for (size_t i = 0; i < str->length; ++i) {
+        printf("%d ", str->data[i]);
+        vecModify(vec, i, varChar(str->data[i]));
+    }
+    printLine();
+    return vec;
 }
 
-CString strSub(CString* str, size_t start, size_t end) {
-    CString new_str;
-    new_str.c_str = _CStrSub(str->c_str, start, end, &new_str.length);
-    return new_str;
-}
-
-CString strSubN(CString* str, size_t start, uint32_t count) {
-    CString new_str;
-    new_str.c_str = _CStrSub(str->c_str, start, start + count - 1, &new_str.length);
-    return new_str;
-}
-
-size_t strSubFind(CString* str, const char* keyword, bool capital_sense) {
-    return SIZE_MAX;
-}
-
-size_t strSubRFind(CString* str, const char* keyword, bool capital_sense) {
-    return SIZE_MAX;
-}

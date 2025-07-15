@@ -1,3 +1,4 @@
+
 #pragma once
 #ifndef CVECTORSUITE_CVARIANT_H
 #define CVECTORSUITE_CVARIANT_H
@@ -8,6 +9,7 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include <memory.h>
 
 typedef enum Types {

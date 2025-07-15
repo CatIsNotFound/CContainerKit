@@ -10,14 +10,22 @@ A collection of C containers based on the C11 standard.
 - Various container implementations are provided, such as static arrays, dynamic arrays, stacks, queues, etc.
 - Support storage and manipulation of variables of any type.
 
+## Quick Start
+
+Visit the [Quick Start page](https://catisnotfound.github.io/CContainerKit-Wiki/quickstart) to get started with this library quickly.
+
+## API Reference
+
+Visit the [APIs page](https://catisnotfound.github.io/CContainerKit-Wiki/apis/) to view all supported APIs.
+
 ## Current progress towards completion
 
 | Container name | Completion progress | Description |
 |----------|----------|--------------|
-| CVariant | 20% | Variables of any type |
-| CArray | 20% | Static array |
-| CVector | 50% | Dynamic array |
-| CString | 20% | String |
+| CVariant | 70% | Variables of any type |
+| CArray | 90% | Static array |
+| CVector | 85% | Dynamic array |
+| CString | 85% | String |
 
 ## Containers that are planned to be completed in the future
 - CStack: stack.

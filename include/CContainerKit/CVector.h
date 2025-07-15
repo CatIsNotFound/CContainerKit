@@ -1,3 +1,5 @@
+
+#pragma once
 #ifndef CVECTORSUITE_CVECTOR_H
 #define CVECTORSUITE_CVECTOR_H
 #include "CVariant.h"
@@ -46,13 +48,18 @@ CVector _vectorSubVec(CVector* vector, size_t start_pos, uint32_t count);
 #define vecIsContain(vector, key, start_pos)     _vectorIsElementContain(&vector, key, start_pos)
 #define vecIndexOf(vector, key, start_pos)       _vectorIndexOf(&vector, key, start_pos)
 #define vecAt(vector, index)                     _vectorAt(&vector, index)
-#define vecModify(vector, index, value)          _vectorModify(&vector, index, value)
-#define vecFill(vector, start_pos, count, value) _vectorFill(&vector, start_pos, count, value)
-#define vecFillAll(vector, value)                _vectorFill(&vector, 0, vector.length, value)
+#define vecModify(vector, index, new_var)        _vectorModify(&vector, index, new_var)
+#define vecFill(vector, start_pos, count, var)   _vectorFill(&vector, start_pos, count, var)
+#define vecFillAll(vector, var)                  _vectorFill(&vector, 0, vector.length, var)
 #define vecSubVector(vector, start_pos, count)   _vectorSubVec(&vector, start_pos, count)
+
 
 #define forEachVecElements(item, vector) \
     item = vector.elements[0];           \
     for (size_t i = 0; i < vector.length; ++i, item = vector.elements[i])
+
+#define forEachVecElePtr(item, vector)    \
+    item = vector->elements[0];           \
+    for (size_t i = 0; i < vector->length; ++i, item = vector->elements[i])
 
 #endif //CVECTORSUITE_CVECTOR_H

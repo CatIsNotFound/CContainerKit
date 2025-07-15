@@ -5,6 +5,13 @@ CVector vectorInit(size_t length) {
     new_vector.length = length;
     new_vector.capacity = length * 2;
     new_vector.elements = (CVariant*) calloc(length * 2, sizeof(CVariant));
+    // Allocation failed
+    if (new_vector.elements == NULL) {
+
+        new_vector.length = 0;
+        new_vector.capacity = 0;
+        return new_vector;
+    }
     for (size_t i = 0; i < length * 2; ++i) {
         new_vector.elements[i].data_type = TYPE_NULL;
         new_vector.elements[i].value = (void*)0;
