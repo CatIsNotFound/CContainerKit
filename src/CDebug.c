@@ -18,7 +18,7 @@ void printstrs(bool space, bool endLine, uint32_t count, ...) {
 }
 
 void setMessageFormat(const char* format) {
-    strcpy_s(c_format, 128, format);
+    strcpy(c_format, format);
 }
 
 void _strcat(char* dest, size_t start_pos, const char* src) {
