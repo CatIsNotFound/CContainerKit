@@ -219,7 +219,7 @@ CVector _splitToVector(CString* str, const char split) {
 }
 
 CVector _strToVector(CString* str) {
-    CVector vec = vectorInitTypRepe(TYPE_INT8, str->length);
+    CVector vec = vectorInitType(TYPE_INT8, str->length);
     for (size_t i = 0; i < str->length; ++i) {
         vecModify(vec, i, varChar(str->data[i]));
     }
