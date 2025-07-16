@@ -1,11 +1,18 @@
+
+// Fixed for MSVC.
+#ifdef _MSC_VER
+#define strcasecmp _stricmp
+#define strncasecmp _strnicmp
+#endif
+
 #include "CContainerKit/CString.h"
-#ifndef HAVE_STRSET
-char* strset(char *s, int c) {
+
+char* _cstrset(char *s, int c) {
     size_t len = strlen(s);
     memset(s, c, len);
     return s;
 }
-#endif
+
 CString string(const char* str) {
     CString new_str;
     size_t new_length = strlen(str);
@@ -44,17 +51,18 @@ void _destroyString(CString* string) {
 }
 
 void _strFillZero(CString* string) {
-    strset(string->data, 0);
+    _cstrset(string->data, 0);
 }
 
 
 CString _strSub(CString* str, uint32_t start_pos, uint32_t count) {
-    char datas[str->length];
-    strset(datas, 0);
+    char* datas = (char*)malloc(str->length);
+    _cstrset(datas, 0);
     for (size_t i = 0; i < count; ++i) {
         datas[i] = str->data[start_pos + i];
     }
     CString new_str = string(datas);
+    free(datas);
     return new_str;
 }
 
@@ -98,11 +106,12 @@ void _strInsertStr(CString *string, uint32_t index, const char *buffer) {
              b_len = strlen(buffer),
              new_length = s_len + b_len;
     if (new_length + 1 >= string->capacity) {
-        char old_str[s_len + 1];
+        char* old_str = (char*) malloc(s_len + 1);
         strcpy(old_str, string->data);
         _destroyData(string);
         _allocateData(string, (new_length) * 2);
         strcpy(string->data, old_str);
+        free(old_str);
     }
     string->length = new_length;
     string->data[string->length] = '\0';
@@ -139,18 +148,25 @@ bool _strIsEqual(CString* string, const char* buffer, bool case_sensitive) {
 
 bool _strIsContain(CString* string, const char* buffer, bool case_sensitive) {
     size_t buf_len = strlen(buffer);
-    char s[buf_len + 1];
+    char* get_sub_str = (char*) malloc(buf_len + 1);
     for (size_t i = 0; i <= string->length - buf_len; ++i) {
         for (size_t j = 0; j < buf_len; ++j) {
-            s[j] = string->data[i + j];
+            get_sub_str[j] = string->data[i + j];
         }
-        s[buf_len] = '\0';
+        get_sub_str[buf_len] = '\0';
         if (case_sensitive) {
-            if (!strcmp(s, buffer)) return true;
+            if (!strcmp(get_sub_str, buffer)) {
+                free(get_sub_str);
+                return true;
+            }
         } else {
-            if (!strcasecmp(s, buffer)) return true;
+            if (!strcasecmp(get_sub_str, buffer)) {
+                free(get_sub_str);
+                return true;
+            }
         }
     }
+    free(get_sub_str);
     return false;
 }
 

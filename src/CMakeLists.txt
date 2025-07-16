@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 
+include(GNUInstallDirs)
+
 file(GLOB_RECURSE LIB_SOURCES CONFIGURE_DEPENDS *.c)
 
 add_library(${PROJECT_NAME} STATIC ${LIB_SOURCES}

@@ -2,6 +2,7 @@
 #pragma once
 #ifndef CVECTORSUITE_CVARIANT_H
 #define CVECTORSUITE_CVARIANT_H
+#define _CRT_SECURE_NO_WARNINGS 1
 
 #include <stddef.h>
 #include <stdint.h>
