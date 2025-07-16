@@ -5,14 +5,6 @@
 #include "CVariant.h"
 #include <errno.h>
 #include <time.h>
-#define TYPE    "$T"
-#define TEXT    "$t"
-#define YEAR    "$Y"
-#define MONTH   "$m"
-#define DAY     "$d"
-#define HOUR    "$H"
-#define MINUTE  "$M"
-#define SECOND  "$S"
 
 #define CLEVEL_DEBUG        "Debug"
 #define CLEVEL_INFO         "Info"

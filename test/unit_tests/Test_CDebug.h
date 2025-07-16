@@ -3,7 +3,9 @@
 #define CCONTAINERKIT_TEST_CDEBUG_H
 #include <CContainerKit/CDebug.h>
 
+// Test 1: Output different levels of information.
 static void cdebug_test_1() {
+    printf("[Test 1]\n");
     setMessageFormat("Type: %T,\t Text: %t");
     debug("Hello Debug!");
     info("This is an info!");
@@ -12,11 +14,17 @@ static void cdebug_test_1() {
     critical("This is a critical!");
 }
 
+// Test 2: Output different datetime formats
 static void cdebug_test_2() {
-    setMessageFormat("[%Y/%m/%d %H:%M:%S] %t");
-    debug("Now (24 Hours)");
-    setMessageFormat("[%Y/%m/%d %I:%M:%S %p] %t");
-    debug("Now (12 Hours)");
+    printf("\n[Test 2]\n");
+    setMessageFormat("[%Y/%m/%d %H:%M:%S]");
+    debug("");
+    setMessageFormat("[%Y/%m/%d %I:%M:%S %P]");
+    debug("");
+    setMessageFormat("[%B %A %d %I:%M:%S %P %Y]");
+    debug("");
+    setMessageFormat("[%f]");
+    debug("");
 }
 
 static void CDebug_test() {
