@@ -215,21 +215,14 @@ CVector _splitToVector(CString* str, const char split) {
         idx = key_pos + 1;
     }
     destroyVector(find_idx);
-
-    CVariant v;
-    forEachVecElements(v, vector) {
-        printf("[%zu] %s\n", i, varStringData(v));
-    }
     return vector;
 }
 
 CVector _strToVector(CString* str) {
-    CVector vec = vectorInitType(TYPE_INT8, str->length);
+    CVector vec = vectorInitTypRepe(TYPE_INT8, str->length);
     for (size_t i = 0; i < str->length; ++i) {
-        printf("%d ", str->data[i]);
         vecModify(vec, i, varChar(str->data[i]));
     }
-    printLine();
     return vec;
 }
 
