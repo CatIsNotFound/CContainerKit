@@ -72,6 +72,7 @@ static void cstr_test4() {
     printf("vec1: ");
     for (size_t i = 0; i < vec1.length; ++i) {
         printf("[%zu] %s (%s)\n", i, varStringData(vec1.elements[i]), varTypeName(vec1.elements[i]));
+        free((char*)vec1.elements[i].value);
     }
     printf("\nLength: %d, Capacity: %d\n", vec1.length, vec1.capacity);
     printf("\nvec2: ");

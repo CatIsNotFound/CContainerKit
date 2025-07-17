@@ -37,6 +37,7 @@ static void cvec_test1() {
         }
         printf("\n");
     }
+    vecFillAll(vector3, _varEmpty()); 
     destroyVector(vector1);
     destroyVector(vector2);
     destroyVector(vector3);
@@ -114,7 +115,7 @@ static void cvec_test4() {
     CVector vec = vectorList(3, varInt(30), key, find_key);
     printf("Element 30 is%s in vector.\n", (vecIsContain(vec, key, 0) ? "" : "n't"));
     printf("Element 40 is%s in vector.\n", (vecIsContain(vec, not_found_key, 0) ? "" : "n't"));
-    printf("The index of element 50 in the vector is %lld.\n", vecIndexOf(vec, find_key, 0));
+    printf("The index of element 50 in the vector is %ld.\n", vecIndexOf(vec, find_key, 0));
     vecModify(vec, 2, not_found_key);
     printf("The index of 2 in the vector is ");
     CVariant v = vecAt(vec, 2);

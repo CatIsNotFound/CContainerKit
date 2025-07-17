@@ -2,6 +2,7 @@
 #define CVECTORSUITE_CARRAY_TEST_H
 #include "CContainerKit/CArray.h"
 
+// Test 1: Initilized and uninitialized array.
 static void carr_test1() {
     CArray arr1 = arrayInit(5);
     CArray arr2 = arrayInitType(TYPE_INT32, 5);
@@ -19,7 +20,7 @@ static void carr_test1() {
     destroyArray(arr2);
 }
 
-
+// Test 2: Erased some of the elements in array.
 static void carr_test2(void) {
     float v = 123.45f;
     CArray arr = arrayList(5, varInt(30), varChar('A'), varFloat(v), varEnum(TYPE_FUNCTION, "dataType"),
@@ -35,6 +36,7 @@ static void carr_test2(void) {
     destroyArray(arr);
 }
 
+// Test 3: Modify and access the elements in array.
 static void carr_test3(void) {
     printf("\n[Test3] ");
     CArray arr = arrayList(4, varString("This"), varString("Is"), varString("a"), varString("Book"));

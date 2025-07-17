@@ -204,6 +204,7 @@ void _vectorFill(CVector* vector, size_t start_pos, uint32_t count, CVariant new
     size_t end_pos = start_pos + count - 1;
     if (end_pos >= vector->length) end_pos = vector->length;
     for (size_t i = start_pos; i <= end_pos; ++i) {
+        varDestroy(vector->elements[i]);
         vector->elements[i] = new_value;
     }
 }

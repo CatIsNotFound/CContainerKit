@@ -6,9 +6,9 @@
 #include "CArray.h"
 
 typedef struct Vector {
-    CVariant* elements;   // 元素
-    uint32_t length;      // 长度
-    uint32_t capacity;    // 容量
+    CVariant* elements;   
+    uint32_t length;      
+    uint32_t capacity;    
 } CVector;
 
 CVector vectorInit(size_t length);

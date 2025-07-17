@@ -5,8 +5,8 @@
 #include "CVariant.h"
 
 typedef struct Array {
-    CVariant* elements;   // 元素
-    size_t    length;     // 长度
+    CVariant* elements;   
+    size_t    length;     
 } CArray;
 
 CArray arrayInit(size_t length);

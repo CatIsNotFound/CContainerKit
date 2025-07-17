@@ -14,25 +14,25 @@
 #include <memory.h>
 
 typedef enum Types {
-    TYPE_NULL,           // 空值
-    TYPE_BOOL,           // 布尔值
-    TYPE_INT8,           // 有符号8位整数
-    TYPE_INT16,          // 有符号16位整数
-    TYPE_INT32,          // 有符号32位整数
-    TYPE_INT64,          // 有符号64位整数
-    TYPE_UINT8,          // 无符号8位整数
-    TYPE_UINT16,         // 无符号16位整数
-    TYPE_UINT32,         // 无符号32位整数
-    TYPE_UINT64,         // 无符号64位整数
-    TYPE_FLOAT,          // 单精度浮点数
-    TYPE_DOUBLE,         // 双精度浮点数
-    TYPE_LONG_DOUBLE,    // 扩展精度浮点数
-    TYPE_POINTER,        // 通用指针
-    TYPE_STRING,         // 字符串 (const char*)
-    TYPE_STRUCT,         // 结构体
-    TYPE_ENUM,           // 枚举
-    TYPE_FUNCTION,       // 函数指针
-    TYPE_CUSTOM          // 自定义
+    TYPE_NULL,           
+    TYPE_BOOL,           
+    TYPE_INT8,           
+    TYPE_INT16,          
+    TYPE_INT32,          
+    TYPE_INT64,          
+    TYPE_UINT8,          
+    TYPE_UINT16,         
+    TYPE_UINT32,         
+    TYPE_UINT64,         
+    TYPE_FLOAT,          
+    TYPE_DOUBLE,         
+    TYPE_LONG_DOUBLE,    
+    TYPE_POINTER,        
+    TYPE_STRING,         
+    TYPE_STRUCT,         
+    TYPE_ENUM,           
+    TYPE_FUNCTION,       
+    TYPE_CUSTOM          
 } dataType;
 
 typedef struct Variant CVariant;
@@ -56,8 +56,8 @@ typedef struct VCustom {
 } VCustom;
 
 struct Variant {
-    void*    value;     // 数据值
-    uint8_t  data_type; // 数据类型
+    void*    value;     
+    uint8_t  data_type; 
 };
 
 #include "CDebug.h"
@@ -113,9 +113,14 @@ void _varUIntModifyValue(CVariant* variant, uint64_t new_value);
 #define varIntModifyData(variant, new_value)  _varIntModifyValue(&variant, new_value)
 #define varUIntModifyData(variant, new_value) _varUIntModifyValue(&variant, new_value)
 
+void _varDestroy(CVariant* variant);
+void _varDestroyString(CVariant* variant);
 void _varDestroyPointer(CVariant* variant);
 void _varDestroyStruct(CVariant* variant);
+void _varDestroyEnum(CVariant* variant);
 void _varDestroyCustom(CVariant* variant);
+
+#define varDestroy(variant)         _varDestroy(&variant)
 
 bool _varBoolValue(CVariant* variant);
 int8_t _varInt8Value(CVariant* variant);

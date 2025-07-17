@@ -215,6 +215,23 @@ void _varUIntModifyValue(CVariant* variant, uint64_t new_value) {
     }
 }
 
+void _varDestroy(CVariant* variant) {
+    if (variant) {
+        _varDestroyString(variant);
+        _varDestroyPointer(variant);
+        _varDestroyStruct(variant);
+        _varDestroyEnum(variant);
+        _varDestroyCustom(variant);
+    }
+}
+
+void _varDestroyString(CVariant* variant) {
+    if (variant->data_type == TYPE_STRING) {
+        char* del_str = (char*) variant->value;
+        free(del_str);
+    }
+}
+
 void _varDestroyPointer(CVariant* variant) {
     if (variant->data_type == TYPE_POINTER) {
         free(variant->value);
@@ -226,6 +243,15 @@ void _varDestroyStruct(CVariant* variant) {
         if (variant->value) {
             VStruct* v_struct = (VStruct*)(variant->value);
             free(v_struct);
+        }
+    }
+}
+
+void _varDestroyEnum(CVariant* variant) {
+    if (variant->data_type == TYPE_ENUM) {
+        if (variant->value) {
+            VEnum* v_enum = (VEnum*)(variant->value);
+            free(v_enum);
         }
     }
 }
@@ -363,9 +389,9 @@ void _printVarData(CVariant* variant) {
         case TYPE_UINT32:
             printf("%d", _varUInt32Value(variant)); break;
         case TYPE_INT64:
-            printf("%lld", _varInt64Value(variant)); break;
+            printf("%ld", _varInt64Value(variant)); break;
         case TYPE_UINT64:
-            printf("%lld", _varUInt64Value(variant)); break;
+            printf("%ld", _varUInt64Value(variant)); break;
         case TYPE_FLOAT:
             if (_varFloatPtr(variant)) printf("%f", *_varFloatPtr(variant));
             else printf("(NULL)");
