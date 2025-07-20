@@ -12,6 +12,7 @@ typedef struct Array {
 CArray arrayInit(size_t length);
 CArray arrayInitType(dataType data_type, size_t length);
 CArray arrayList(size_t length, ...);
+void _deleteArray(CArray* array);
 void _destroyArray(CArray* array);
 void _arrayErase(CArray* array, size_t start_pos, size_t end_pos);
 void _arrayEraseAll(CArray* array);
@@ -20,6 +21,7 @@ size_t _arrayIndexOf(CArray *array, CVariant element, size_t start_pos);
 CVariant _arrayAt(CArray* array, size_t index);
 bool _arrayModify(CArray* array, size_t index, CVariant value);
 
+#define deleteArray(array)                       _deleteArray(&array)
 #define destroyArray(array)                      _destroyArray(&array)
 #define arrayErase(array, start_pos, end_pos)    _arrayErase(&array, start_pos, end_pos)
 #define arrayEraseAll(array)                     _arrayEraseAll(&array)

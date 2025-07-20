@@ -26,7 +26,7 @@ static void carr_test2(void) {
     CArray arr = arrayList(5, varInt(30), varChar('A'), varFloat(v), varEnum(TYPE_FUNCTION, "dataType"),
                            varString("Test String"));
     printf("\n[Test2] ");
-    arrayErase(arr, 3, 4);
+    arrayErase(arr, 2, 4);
     for (size_t i = 0; i < arr.length; ++i) {
         printf("[%zu] ", i);
         printVarData(arr.elements[i]);
@@ -48,8 +48,10 @@ static void carr_test3(void) {
     }
     printf("\n");
     printf("Array at index %d: %s\n", 0, (const char*)arrayAt(arr, 0).value);
-    printf("\"Cow\" in arrayList at index %zu.\n", arrayIndexOf(arr, varString("Cow"), 0));
-    printf("is \"Book\" exist in arrayList? %s\n", (arrayIsContain(arr, varString("Book"), 0) ? "Yes" : "No"));
+    CVariant find_key = varString("Cow"), find_key_2 = varString("Book");
+    printf("\"Cow\" in arrayList at index %zu.\n", arrayIndexOf(arr, find_key, 0));
+    printf("is \"Book\" exist in arrayList? %s\n", (arrayIsContain(arr, find_key_2, 0) ? "Yes" : "No"));
+    _varsDestroy(2, find_key, find_key_2);
     arrayEraseAll(arr);
     printf("Length: %zu, Type: %s\n", arr.length, varTypeName(arr.elements[0]));
     forEachArrElements(var, arr) {

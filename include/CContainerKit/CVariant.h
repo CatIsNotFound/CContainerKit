@@ -114,6 +114,7 @@ void _varUIntModifyValue(CVariant* variant, uint64_t new_value);
 #define varUIntModifyData(variant, new_value) _varUIntModifyValue(&variant, new_value)
 
 void _varDestroy(CVariant* variant);
+void _varsDestroy(size_t length, ...);
 void _varDestroyString(CVariant* variant);
 void _varDestroyPointer(CVariant* variant);
 void _varDestroyStruct(CVariant* variant);
@@ -121,6 +122,7 @@ void _varDestroyEnum(CVariant* variant);
 void _varDestroyCustom(CVariant* variant);
 
 #define varDestroy(variant)         _varDestroy(&variant)
+
 
 bool _varBoolValue(CVariant* variant);
 int8_t _varInt8Value(CVariant* variant);

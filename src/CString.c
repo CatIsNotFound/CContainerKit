@@ -1,16 +1,22 @@
 
-// Fixed for MSVC.
-#ifdef _MSC_VER
-#define strcasecmp _stricmp
-#define strncasecmp _strnicmp
-#endif
-
 #include "CContainerKit/CString.h"
+#include <ctype.h>
 
 char* _cstrset(char *s, int c) {
     size_t len = strlen(s);
     memset(s, c, len);
     return s;
+}
+
+bool _cstrCaseIsEqual(const char* s1, const char* s2) {
+    if (strlen(s1) != strlen(s2)) return false;
+
+    while (*s1 != '\0') {
+        if (tolower(*s1) != tolower(*s2)) return false;
+        s1++;
+        s2++;
+    }
+    return true;
 }
 
 CString string(const char* str) {
@@ -86,7 +92,7 @@ CString strList(const char* split, uint32_t count, ...) {
             length += strlen(split);
         }
     }
-    destroyArray(str_array);
+    deleteArray(str_array);
     return new_str;
 }
 
@@ -142,7 +148,7 @@ bool _strIsEqual(CString* string, const char* buffer, bool case_sensitive) {
     if (case_sensitive) {
         return strcmp(string->data, buffer) == 0;
     } else {
-        return strcasecmp(string->data, buffer) == 0;
+        return _cstrCaseIsEqual(string->data, buffer);
     }
 }
 
@@ -160,7 +166,7 @@ bool _strIsContain(CString* string, const char* buffer, bool case_sensitive) {
                 return true;
             }
         } else {
-            if (!strcasecmp(get_sub_str, buffer)) {
+            if (_cstrCaseIsEqual(get_sub_str, buffer)) {
                 free(get_sub_str);
                 return true;
             }
@@ -212,6 +218,7 @@ CVector _splitToVector(CString* str, const char split) {
         sub_str[pos] = '\0';
         CVariant var_str = varString(sub_str);
         vecModify(vector, i, var_str);
+        varDestroy(var_str);
         idx = key_pos + 1;
     }
     destroyVector(find_idx);

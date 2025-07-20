@@ -7,7 +7,7 @@ CVector vectorInit(size_t length) {
     new_vector.elements = (CVariant*) calloc(length * 2, sizeof(CVariant));
     // Allocation failed
     if (new_vector.elements == NULL) {
-
+        throwError("vectorInit: No memory allocated!");
         new_vector.length = 0;
         new_vector.capacity = 0;
         return new_vector;
@@ -125,6 +125,16 @@ void _destroyVector(CVector* vector) {
         vector->elements = NULL;
         vector->length = 0;
         vector->capacity = 0;
+    }
+}
+
+void _deleteVector(CVector* vector) {
+    if (vector) {
+        CVariant var;
+        forEachVecElePtr(var, vector) {
+            varDestroy(var);
+        }
+        _destroyVector(vector);
     }
 }
 

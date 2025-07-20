@@ -19,6 +19,7 @@ CArray _vectorToArray(CVector* vector, bool delete_vector, bool* ok);
 void _expandVector(CVector* vector);
 void _resizeVector(CVector* vector, size_t new_size);
 void _destroyVector(CVector* vector);
+void _deleteVector(CVector* vector);
 void _vectorInsert(CVector* vector, size_t index, CVariant new_value);
 void _vectorInsertFromArray(CVector* vector, size_t index, CArray* array);
 void _vectorRemove(CVector* vector, size_t start_pos, size_t count);
@@ -33,6 +34,7 @@ CVector _vectorSubVec(CVector* vector, size_t start_pos, uint32_t count);
 #define arrToVector(array, delete_array, ok)     _arrayToVector(&array, delete_array, ok)
 #define vecToArray(vector, delete_vector, ok)    _vectorToArray(&vector, delete_vector, ok)
 #define destroyVector(vector)                    _destroyVector(&vector)
+#define deleteVector(vector)                     _deleteVector(&vector)
 #define vecInsertOne(vector, index, var)         _vectorInsert(&vector, index, var)
 #define vecPushBack(vector, var)                 _vectorInsert(&vector, vector.length, var);
 #define vecPushFront(vector, var)                _vectorInsert(&vector, 0, var)

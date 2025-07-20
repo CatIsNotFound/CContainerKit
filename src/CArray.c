@@ -35,6 +35,13 @@ CArray arrayList(size_t length, ...) {
     return new_array;
 }
 
+void _deleteArray(CArray* array) {
+    if (array) {
+        _arrayEraseAll(array);
+        _destroyArray(array);
+    }
+}
+
 void _destroyArray(CArray* array) {
     if (array && array->elements) {
         free(array->elements);
@@ -93,6 +100,7 @@ CVariant _arrayAt(CArray* array, size_t index) {
 
 bool _arrayModify(CArray* array, size_t index, CVariant value) {
     if (index < array->length) {
+        varDestroy(array->elements[index]);
         array->elements[index] = value;
         return true;
     }

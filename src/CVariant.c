@@ -156,7 +156,9 @@ CVariant _varPointer(void* value) {
 CVariant _varString(const char* value) {
     CVariant new_variant;
     new_variant.data_type = TYPE_STRING;
-    new_variant.value = (void*)value;
+    char* new_value = (char*) malloc(strlen(value) + 1);
+    strcpy(new_value, value);
+    new_variant.value = (void*)new_value;
     return new_variant;
 }
 
@@ -223,6 +225,16 @@ void _varDestroy(CVariant* variant) {
         _varDestroyEnum(variant);
         _varDestroyCustom(variant);
     }
+}
+
+void _varsDestroy(size_t length, ...) {
+    va_list s_list;
+    va_start(s_list, length);
+    for (size_t i = 0; i < length; ++i) {
+        CVariant v = va_arg(s_list, CVariant);
+        _varDestroy(&v);
+    }
+    va_end(s_list);
 }
 
 void _varDestroyString(CVariant* variant) {
@@ -389,9 +401,9 @@ void _printVarData(CVariant* variant) {
         case TYPE_UINT32:
             printf("%d", _varUInt32Value(variant)); break;
         case TYPE_INT64:
-            printf("%ld", _varInt64Value(variant)); break;
+            printf("%lld", _varInt64Value(variant)); break;
         case TYPE_UINT64:
-            printf("%ld", _varUInt64Value(variant)); break;
+            printf("%lld", _varUInt64Value(variant)); break;
         case TYPE_FLOAT:
             if (_varFloatPtr(variant)) printf("%f", *_varFloatPtr(variant));
             else printf("(NULL)");
