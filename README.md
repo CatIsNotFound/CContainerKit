@@ -26,6 +26,7 @@ Visit the [APIs page](https://catisnotfound.github.io/CContainerKit-Wiki/apis/) 
 | CArray | 90% | Static array |
 | CVector | 85% | Dynamic array |
 | CString | 85% | String |
+| CStack | 90% | Stack |
 
 ## Containers that are planned to be completed in the future
 - CStack: stack.

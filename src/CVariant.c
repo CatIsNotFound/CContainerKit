@@ -175,7 +175,7 @@ CVariant _varStruct(void *value, const char *type_name) {
 CVariant _varEnum(int8_t value, const char *type_name) {
     CVariant new_variant;
     new_variant.data_type = TYPE_ENUM;
-    VEnum* new_enum = malloc(sizeof(VEnum));
+    VEnum* new_enum = calloc(1, sizeof(VEnum));
     new_enum->value = value;
     new_enum->type_name = type_name;
     new_variant.value = (void*)new_enum;
@@ -241,12 +241,14 @@ void _varDestroyString(CVariant* variant) {
     if (variant->data_type == TYPE_STRING) {
         char* del_str = (char*) variant->value;
         free(del_str);
+        del_str = NULL;
     }
 }
 
 void _varDestroyPointer(CVariant* variant) {
     if (variant->data_type == TYPE_POINTER) {
         free(variant->value);
+        variant->value = NULL;
     }
 }
 
@@ -255,6 +257,7 @@ void _varDestroyStruct(CVariant* variant) {
         if (variant->value) {
             VStruct* v_struct = (VStruct*)(variant->value);
             free(v_struct);
+            v_struct = NULL;
         }
     }
 }
@@ -264,6 +267,7 @@ void _varDestroyEnum(CVariant* variant) {
         if (variant->value) {
             VEnum* v_enum = (VEnum*)(variant->value);
             free(v_enum);
+            v_enum = NULL;
         }
     }
 }
@@ -274,6 +278,7 @@ void _varDestroyCustom(CVariant* variant) {
             VCustom *custom = (VCustom *) (variant->value);
             custom->destructor(variant->value);
             free(custom);
+            custom = NULL;
         }
     }
 }

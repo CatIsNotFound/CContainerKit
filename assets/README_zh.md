@@ -24,6 +24,7 @@
 | CArray   | 90%      | 静态数组     |
 | CVector  | 85%      | 动态数组     |
 | CString  | 85%      | 字符串       |
+| CStack   | 90%      | 栈           |
 
 ## 未来计划完成的容器
 - CStack：栈。

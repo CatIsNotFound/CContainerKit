@@ -16,6 +16,8 @@ add_library(${PROJECT_NAME} STATIC ${LIB_SOURCES}
         ../include/CContainerKit.h
         ../include/CContainerKit/CString.h
         CString.c
+        ../include/CContainerKit/CStack.h
+        CStack.c
 )
 
 target_include_directories(${PROJECT_NAME}

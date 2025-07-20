@@ -3,7 +3,7 @@
 #include "CContainerKit/CArray.h"
 
 // Test 1: Initilized and uninitialized array.
-static void carr_test1() {
+static void carr_test1(void) {
     CArray arr1 = arrayInit(5);
     CArray arr2 = arrayInitType(TYPE_INT32, 5);
     printf("[Test1] ");

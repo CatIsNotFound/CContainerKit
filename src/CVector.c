@@ -7,7 +7,6 @@ CVector vectorInit(size_t length) {
     new_vector.elements = (CVariant*) calloc(length * 2, sizeof(CVariant));
     // Allocation failed
     if (new_vector.elements == NULL) {
-        throwError("vectorInit: No memory allocated!");
         new_vector.length = 0;
         new_vector.capacity = 0;
         return new_vector;
@@ -24,6 +23,11 @@ CVector vectorInitType(dataType data_type, size_t length) {
     new_vector.length = length;
     new_vector.capacity = length * 2;
     new_vector.elements = (CVariant*) calloc(length * 2, sizeof(CVariant));
+    if (new_vector.elements == NULL) {
+        new_vector.length = 0;
+        new_vector.capacity = 0;
+        return new_vector;
+    }
     for (size_t i = 0; i < length * 2; ++i) {
         new_vector.elements[i].data_type = data_type;
         new_vector.elements[i].value = (void*)0;
@@ -110,6 +114,10 @@ void _expandVector(CVector *vector) {
 
 void _resizeVector(CVector* vector, size_t new_size) {
     if (!vector) return;
+    if (new_size < vector->capacity) {
+        throwError("Resize failed: The new size is smaller than the original size.");
+        return;
+    }
     CVariant* new_space = (CVariant*) calloc(new_size, sizeof(CVariant));
     for (size_t i = 0; i < vector->length; ++i) {
         new_space[i] = vector->elements[i];
