@@ -20,13 +20,14 @@ Visit the [APIs page](https://catisnotfound.github.io/CContainerKit-Wiki/apis/) 
 
 ## Current progress towards completion
 
-| Container name | Completion progress | Description |
-|----------|----------|--------------|
-| CVariant | 70% | Variables of any type |
-| CArray | 90% | Static array |
-| CVector | 85% | Dynamic array |
-| CString | 85% | String |
-| CStack | 90% | Stack |
+| Container name | Completion progress | Description              |
+|----------|----------|--------------------------|
+| CVariant | 70% | Variables of any type    |
+| CArray | 90% | Static array             |
+| CVector | 85% | Dynamic array            |
+| CString | 85% | String                   |
+| CStack | 90% | Stack (Based by CVector) |
+| CDeque | 90% | Deque (Based by CVector) |
 
 ## Containers that are planned to be completed in the future
 - CStack: stack.
