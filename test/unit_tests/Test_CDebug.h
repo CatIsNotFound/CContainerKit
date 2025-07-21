@@ -4,7 +4,7 @@
 #include <CContainerKit/CDebug.h>
 
 // Test 1: Output different levels of information.
-static void cdebug_test_1() {
+static void cdebug_test_1(void) {
     printf("[Test 1]\n");
     setMessageFormat("Type: %T,\t Text: %t");
     debug("Hello Debug!");
@@ -15,7 +15,7 @@ static void cdebug_test_1() {
 }
 
 // Test 2: Output different datetime formats
-static void cdebug_test_2() {
+static void cdebug_test_2(void) {
     printf("\n[Test 2]\n");
     setMessageFormat("[%Y/%m/%d %H:%M:%S]");
     debug("");
@@ -27,7 +27,7 @@ static void cdebug_test_2() {
     debug("");
 }
 
-static void CDebug_test() {
+static void CDebug_test(void) {
     printstr("=== CDebug Test ===", '\n');
     cdebug_test_1();
     cdebug_test_2();

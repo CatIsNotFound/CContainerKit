@@ -9,7 +9,7 @@ typedef struct Date {
 } Date;
 
 // Test 1: CVector initialization test.
-static void cvec_test1() {
+static void cvec_test1(void) {
     printf("[Test1]\n");
     printf("vector1: ");
     CVector vector1 = vectorInit(3);
@@ -44,7 +44,7 @@ static void cvec_test1() {
 }
 
 // Test 2: Conversion between CArray and CVector.
-static void cvec_test2() {
+static void cvec_test2(void) {
     printf("[Test2]\n");
     CArray arr = arrayList(3, varInt(30), varInt(20), varInt(60));
     CVector vec1 = arrToVector(arr, true, NULL);
@@ -66,7 +66,7 @@ static void cvec_test2() {
 }
 
 // Test 3: Addition and deletion of elements.
-static void cvec_test3() {
+static void cvec_test3(void) {
     printf("[Test3]\n");
     CVector vector = vectorList(0);
     vecPushBack(vector, varInt(360));
@@ -109,7 +109,7 @@ static void cvec_test3() {
 }
 
 // Test 4: Find and replace elements.
-static void cvec_test4() {
+static void cvec_test4(void) {
     printf("[Test 4]\n");
     CVariant key = varInt(20), not_found_key = varInt(40), find_key = varInt(50);
     CVector vec = vectorList(3, varInt(30), key, find_key);
@@ -125,7 +125,7 @@ static void cvec_test4() {
 }
 
 // Test 5: A single vector fills multiple elements.
-static void cvec_test5() {
+static void cvec_test5(void) {
     printf("[Test 5]\n");
     CVariant var = varInt(0);
     CVector vec = vectorList(5, varInt(1), varInt(2), varInt(3), varInt(4), varInt(5));
@@ -147,30 +147,30 @@ static void cvec_test5() {
 }
 
 // Test 6: Get a sub-vector from a single vector.
-static void cvec_test6() {
+static void cvec_test6(void) {
     printf("[Test 6]\n");
     CVector origin_vec = vectorList(5, varInt(1), varInt(2), varInt(3), varInt(4), varInt(5));
     CVector sub_vec = vecSubVector(origin_vec, 1, 3);
-    CVariant var;
     printf("origin_vector: ");
-    forEachVecElements(var, origin_vec) {
+    for (size_t i = 0; i < origin_vec.length; ++i) {
         printf("[%zu] ", i);
-        printVarData(var);
+        printVarData(origin_vec.elements[i]);
         printf(" ");
     }
     printLine();
     printf("sub_vector: ");
-    forEachVecElements(var, sub_vec) {
+    for (size_t i = 0; i < sub_vec.length; ++i) {
         printf("[%zu] ", i);
-        printVarData(var);
+        printVarData(sub_vec.elements[i]);
         printf(" ");
     }
+
     printLine();
     destroyVector(sub_vec);
     destroyVector(origin_vec);
 }
 
-static void CVector_test() {
+static void CVector_test(void) {
     printf("=== CVector Test ===\n");
     cvec_test1();
     cvec_test2();

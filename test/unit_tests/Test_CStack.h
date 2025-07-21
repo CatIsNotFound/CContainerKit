@@ -64,8 +64,8 @@ static void cstk_test2(void) {
         printf("(%s) | ", varTypeName(var));
     }
     printLine();
-    destroyVector(vector1);
-    destroyStack(stack2);
+    deleteVector(vector1);
+    deleteStack(stack2);
 }
 
 // Test 3: Resize, Addition and deletion of elements.
@@ -104,7 +104,7 @@ static void cstk_test4(void) {
     printf("\n[Test 4]\n");
     double d = 3.1415926;
     Time time = {12, 24, 48};
-    CStack stack1 = stackList(4, varString("String"), varStruct(time, "Time"), varChar('B'), varInt(666666));
+    CStack stack1 = stackList(4, varString("String"), varStruct(time, "Time"), varChar('B'), varDouble(d));
     printf("Is \'B\' in stack1? %s\n", (stkIsContain(stack1, varChar('B')) ? "Yes" : "No"));
     printf("Is \'C\' in stack1? %s\n", (stkIsContain(stack1, varChar('C')) ? "Yes" : "No"));
     printf("Index 2 in stack1: ");
@@ -116,7 +116,7 @@ static void cstk_test4(void) {
     printVarData(v);
     printLine();
     printf("The element \'B\' is index %d.\n", stkIndexOf(stack1, varChar('B'), 0));
-
+    deleteStack(stack1);
 }
 
 static void CStack_test(void) {

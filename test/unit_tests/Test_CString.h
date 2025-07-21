@@ -5,7 +5,7 @@
 #include "CContainerKit/CDebug.h"
 
 // Test 1: Initialization, addition and deletion of strings.
-static void cstr_test1() {
+static void cstr_test1(void) {
     CString str1 = string("Hello");
     CString str2 = strInit('C', 3);
     CString str3 = strList(" ", 4, "Hello,", "I", "am", "Tom!");
@@ -28,7 +28,7 @@ static void cstr_test1() {
 }
 
 // Test 2: Copy and get sub string
-static void cstr_test2() {
+static void cstr_test2(void) {
     CString str_root = string("Where there is a will, there is a way!");
     CString str_sc = stringSub(str_root, 6, 5);
     stringCopy(str_sc, "One day one apple, doctor keep me away!");
@@ -41,7 +41,7 @@ static void cstr_test2() {
 }
 
 // Test 3: Compare, contain, Case conversion
-static void cstr_test3() {
+static void cstr_test3(void) {
     CString str = string("Sample Text!");
     bool b1 = stringIsEqual(str, "sample text!", false),
          b2 = stringIsEqual(str, "sample text!", true);
@@ -63,7 +63,7 @@ static void cstr_test3() {
 }
 
 // Test 4: Split and Vector
-static void cstr_test4() {
+static void cstr_test4(void) {
     printstr("\n[Test 4]", '\n');
     CString str = string("Where there is a will, there is a way!");
     CVector vec1 = stringSplit(str, ' '),
@@ -72,7 +72,6 @@ static void cstr_test4() {
     printf("vec1: ");
     for (size_t i = 0; i < vec1.length; ++i) {
         printf("[%zu] %s (%s)\n", i, varStringData(vec1.elements[i]), varTypeName(vec1.elements[i]));
-        free((char*)vec1.elements[i].value);
     }
     printf("\nLength: %d, Capacity: %d\n", vec1.length, vec1.capacity);
     printf("\nvec2: ");
@@ -82,11 +81,11 @@ static void cstr_test4() {
     }
     printf("\nLength: %d, Capacity: %d\n", vec2.length, vec2.capacity);
     destroyString(str);
-    destroyVector(vec1);
+    deleteVector(vec1);
     destroyVector(vec2);
 }
 
-static void CString_test() {
+static void CString_test(void) {
     printstr("=== CString Test ===", '\n');
     cstr_test1();
     cstr_test2();

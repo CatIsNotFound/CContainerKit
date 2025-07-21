@@ -23,8 +23,8 @@ CString string(const char* str) {
     CString new_str;
     size_t new_length = strlen(str);
     _allocateData(&new_str, new_length * 2);
-    strcpy(new_str.data, str);
     new_str.length = new_length;
+    strcpy(new_str.data, str);
     return new_str;
 }
 
@@ -41,6 +41,7 @@ CString strInit(const char ch, size_t length) {
 
 void _allocateData(CString* string, size_t new_length) {
     string->data = (char *) calloc(new_length + 1, sizeof(char));
+    _cstrset(string->data, 0);
     string->capacity = new_length + 1;
 }
 
@@ -75,7 +76,7 @@ CString _strSub(CString* str, uint32_t start_pos, uint32_t count) {
 CString strList(const char* split, uint32_t count, ...) {
     va_list s_list;
     va_start(s_list, count);
-    CArray str_array = arrayInitType(TYPE_STRING, count);
+    CArray str_array = arrayInit(count);
     size_t length = 0;
     for (size_t i = 0; i < count; ++i) {
         const char* str = va_arg(s_list, const char*);
@@ -84,9 +85,8 @@ CString strList(const char* split, uint32_t count, ...) {
     }
     va_end(s_list);
     CString new_str = strInit('\0', (length + str_array.length - 1));
-    CVariant str;
-    forEachArrElements(str, str_array) {
-        strcat(new_str.data, varStringData(str));
+    for (size_t i = 0; i < str_array.length; ++i) {
+        strcat(new_str.data, varStringData(str_array.elements[i]));
         if (i < str_array.length - 1) {
             strcat(new_str.data, split);
             length += strlen(split);
@@ -209,7 +209,7 @@ CVector _splitToVector(CString* str, const char split) {
     size_t idx = 0;
     CVector vector = vectorInit(find_idx.length);
     for (size_t i = 0; i < find_idx.length; ++i) {
-        char* sub_str = (char*)calloc(str->length + 1, sizeof(char));
+        char* sub_str = calloc(str->length + 1, sizeof(char));
         uint64_t key_pos = varULongLongData(find_idx.elements[i]);
         uint64_t pos = 0;
         for (uint64_t j = idx; j < key_pos; ++j) {
@@ -218,8 +218,8 @@ CVector _splitToVector(CString* str, const char split) {
         sub_str[pos] = '\0';
         CVariant var_str = varString(sub_str);
         vecModify(vector, i, var_str);
-        varDestroy(var_str);
         idx = key_pos + 1;
+        free(sub_str);
     }
     destroyVector(find_idx);
     return vector;

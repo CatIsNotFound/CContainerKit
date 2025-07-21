@@ -68,8 +68,7 @@ void _arrayErase(CArray* array, size_t start_pos, size_t end_pos) {
 void _arrayEraseAll(CArray* array) {
     for (size_t i = 0; i < array->length; ++i) {
         varDestroy(array->elements[i]);
-        array->elements[i].data_type = TYPE_NULL;
-        array->elements[i].value = (void*)0;
+        array->elements[i] = _varEmpty();
     }
 }
 

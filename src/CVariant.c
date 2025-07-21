@@ -156,7 +156,7 @@ CVariant _varPointer(void* value) {
 CVariant _varString(const char* value) {
     CVariant new_variant;
     new_variant.data_type = TYPE_STRING;
-    char* new_value = (char*) malloc(strlen(value) + 1);
+    char* new_value = (char*) calloc(strlen(value) + 1, sizeof(char));
     strcpy(new_value, value);
     new_variant.value = (void*)new_value;
     return new_variant;
@@ -406,9 +406,9 @@ void _printVarData(CVariant* variant) {
         case TYPE_UINT32:
             printf("%d", _varUInt32Value(variant)); break;
         case TYPE_INT64:
-            printf("%lld", _varInt64Value(variant)); break;
+            printf("%ld", _varInt64Value(variant)); break;
         case TYPE_UINT64:
-            printf("%lld", _varUInt64Value(variant)); break;
+            printf("%lu", _varUInt64Value(variant)); break;
         case TYPE_FLOAT:
             if (_varFloatPtr(variant)) printf("%f", *_varFloatPtr(variant));
             else printf("(NULL)");

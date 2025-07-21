@@ -41,9 +41,13 @@ static void carr_test3(void) {
     printf("\n[Test3] ");
     CArray arr = arrayList(4, varString("This"), varString("Is"), varString("a"), varString("Book"));
     arrayModify(arr, 3, varString("Cow"));
-    CVariant var;
-    forEachArrElements(var, arr) {
-        printVarData(var);
+    // CVariant var;
+    // forEachArrElements(var, arr) {
+    //     printVarData(var);
+    //     printf(" ");
+    // }
+    for (size_t i = 0; i < arr.length; ++i) {
+        printVarData(arr.elements[i]);
         printf(" ");
     }
     printf("\n");
@@ -53,9 +57,9 @@ static void carr_test3(void) {
     printf("is \"Book\" exist in arrayList? %s\n", (arrayIsContain(arr, find_key_2, 0) ? "Yes" : "No"));
     _varsDestroy(2, find_key, find_key_2);
     arrayEraseAll(arr);
-    printf("Length: %zu, Type: %s\n", arr.length, varTypeName(arr.elements[0]));
-    forEachArrElements(var, arr) {
-        printVarData(var);
+    printf("Length: %zu\n", arr.length);
+    for (size_t i = 0; i < arr.length; ++i) {
+        printVarData(arr.elements[i]);
         printf(" ");
     }
     printf("\n");

@@ -28,6 +28,7 @@ CStack stackList(size_t length, ...) {
 CVector _stkToVector(CStack* stack, bool delete_stack, bool* ok) {
     if (!stack) {
         if (ok) *ok = false;
+        throwError("Stack to Vector: The specified stack is not valid!");
         return vectorInit(0);
     }
     CVector new_vector = vectorInit(_stackSize(stack));
@@ -43,11 +44,20 @@ CVector _stkToVector(CStack* stack, bool delete_stack, bool* ok) {
 }
 
 CStack _vecToStack(CVector* vector, bool delete_vector, bool* ok) {
+    if (!vector) {
+        if (ok) *ok = false;
+        CStack null_stack = {};
+        return null_stack;
+    }
     CStack new_stack = stackInit(vector->length);
     CVariant var;
     forEachVecElePtr(var, vector) {
         vecModify(new_stack.my_stack, i, var);
     }
+    if (delete_vector) {
+        _destroyVector(vector);
+    }
+    if (ok) *ok = true;
     return new_stack;
 }
 

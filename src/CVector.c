@@ -138,9 +138,8 @@ void _destroyVector(CVector* vector) {
 
 void _deleteVector(CVector* vector) {
     if (vector) {
-        CVariant var;
-        forEachVecElePtr(var, vector) {
-            varDestroy(var);
+        for (size_t i = 0; i < vector->length; ++i) {
+            varDestroy(vector->elements[i]);
         }
         _destroyVector(vector);
     }
