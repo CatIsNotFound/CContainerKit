@@ -74,16 +74,28 @@ void _deleteDeque(CDeque* deque) {
     deleteVector(deque->my_deque);
 }
 
-void _dequePush(CDeque* deque, CVariant new_value) {
+void _dequePushBack(CDeque* deque, CVariant new_value) {
     vecPushBack(deque->my_deque, new_value);
 }
 
-void _dequePushFromArray(CDeque* deque, CArray* array) {
+void _dequePushFront(CDeque* deque, CVariant new_value) {
+    vecPushFront(deque->my_deque, new_value);
+}
+
+void _dequePushBackFromArray(CDeque* deque, CArray* array) {
     vecPushBackArray(deque->my_deque, *array);
 }
 
-void _dequePop(CDeque* deque) {
+void _dequePushFrontFromArray(CDeque* deque, CArray* array) {
+    vecPushFrontArray(deque->my_deque, *array);
+}
+
+void _dequePopFront(CDeque* deque) {
     if (deque->my_deque.length) vecPopFront(deque->my_deque);
+}
+
+void _dequePopBack(CDeque* deque) {
+    if (deque->my_deque.length) vecPopBack(deque->my_deque);
 }
 
 void _dequeClear(CDeque* deque) {

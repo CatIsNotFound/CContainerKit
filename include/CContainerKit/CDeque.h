@@ -16,9 +16,12 @@ CDeque _vecToDeque(CVector* vector, bool delete_vector, bool* ok);
 void _resizeDeque(CDeque* deque, uint32_t new_size);
 void _destroyDeque(CDeque* deque);
 void _deleteDeque(CDeque* deque);
-void _dequePush(CDeque* deque, CVariant new_value);
-void _dequePushFromArray(CDeque* deque, CArray* array);
-void _dequePop(CDeque* deque);
+void _dequePushBack(CDeque* deque, CVariant new_value);
+void _dequePushFront(CDeque* deque, CVariant new_value);
+void _dequePushBackFromArray(CDeque* deque, CArray* array);
+void _dequePushFrontFromArray(CDeque* deque, CArray* array);
+void _dequePopBack(CDeque* deque);
+void _dequePopFront(CDeque* deque);
 void _dequeClear(CDeque* deque);
 bool _dequeIsElementContain(CDeque* deque, CVariant key);
 CVariant _dequeAt(CDeque* deque, size_t index);
@@ -34,9 +37,12 @@ uint32_t _dequeCapacity(CDeque* deque);
 #define resizeDeque(deque, new_size)                      _resizeDeque(&deque, new_size)
 #define destroyDeque(deque)                               _destroyDeque(&deque)
 #define deleteDeque(deque)                                _deleteDeque(&deque)
-#define deqPush(deque, var)                               _dequePush(&deque, var)
-#define deqPushFromArray(deque, array)                    _dequePushFromArray(&deque, &array)
-#define deqPop(deque)                                     _dequePop(&deque)
+#define deqPushFront(deque, var)                          _dequePushFront(&deque, var)
+#define deqPushFrontFromArray(deque, array)               _dequePushFrontFromArray(&deque, &array)
+#define deqPushBack(deque, var)                           _dequePushBack(&deque, var)
+#define deqPushBackFromArray(deque, array)                _dequePushBackFromArray(&deque, &array)
+#define deqPopFront(deque)                                _dequePopFront(&deque)
+#define deqPopBack(deque)                                 _dequePopBack(&deque)
 #define deqClear(deque)                                   _dequeClear(&deque)
 #define deqIsContain(deque, key)                          _dequeIsElementContain(&deque, key)
 #define deqAt(deque, index)                               _dequeAt(&deque, index)

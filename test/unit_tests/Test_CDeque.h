@@ -77,10 +77,10 @@ static void cdeq_test3(void) {
     CDeque deque2 = dequeList(5, varChar('#'), varUChar('P'), varShort(1024), varFloat(f), varString("qwerty"));
     CArray arr = arrayList(5, varInt(30), varChar('A'), varFloat(f), varEnum(TYPE_STRUCT, "dataType"),
                            varString("Test String"));
-    deqPop(deque2);
+    deqPopFront(deque2);
     Time time = {10, 20, 30};
-    deqPush(deque2, varStruct(time, "Time"));
-    deqPushFromArray(deque2, arr);
+    deqPushBack(deque2, varStruct(time, "Time"));
+    deqPushFrontFromArray(deque2, arr);
     printf("[Deque 2] length: %d, capacity: %d\n",
            deqLength(deque2), deqCapacity(deque2));
     CVariant var;
