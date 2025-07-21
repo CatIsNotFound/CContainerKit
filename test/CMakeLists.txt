@@ -9,5 +9,6 @@ add_executable(${PROJECT_NAME}
         unit_tests/Test_CString.h
         unit_tests/Test_CDebug.h
         unit_tests/Test_CStack.h
+        unit_tests/Test_CDeque.h
 )
 target_link_libraries(${PROJECT_NAME} PRIVATE CContainerKit)

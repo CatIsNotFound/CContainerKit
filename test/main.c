@@ -2,6 +2,7 @@
 #include "unit_tests/Test_CArray.h"
 #include "unit_tests/Test_CVector.h"
 #include "unit_tests/Test_CStack.h"
+#include  "unit_tests/Test_CDeque.h"
 #include "unit_tests/Test_CString.h"
 #include "unit_tests/Test_CDebug.h"
 #include <string.h>
@@ -12,8 +13,10 @@ int main(int argc, const char* argv[]) {
         printf("Avaliable Test case: \n");
         printf("- array\n"
                "- string\n"
-               "- variant\n"
                "- vector\n"
+               "- stack\n"
+               "- deque\n"
+               "- debug"
                "e.g: To test [CArray], just type: %s array\n", argv[0]);
         return 1;
     }
@@ -25,6 +28,8 @@ int main(int argc, const char* argv[]) {
         CVector_test();
     } else if (!strcmp(argv[1], "stack")) {
         CStack_test();
+    } else if (!strcmp(argv[1], "deque")) {
+        CDeque_test();
     } else if (!strcmp(argv[1], "debug")) {
         CDebug_test();
     } else {
