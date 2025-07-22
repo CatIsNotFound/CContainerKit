@@ -68,7 +68,7 @@ void _arrayErase(CArray* array, size_t start_pos, size_t end_pos) {
 void _arrayEraseAll(CArray* array) {
     for (size_t i = 0; i < array->length; ++i) {
         varDestroy(array->elements[i]);
-        array->elements[i] = _varEmpty();
+        array->elements[i] = varEmpty();
     }
 }
 
@@ -94,7 +94,7 @@ CVariant _arrayAt(CArray* array, size_t index) {
     if (index < array->length) {
         return array->elements[index];
     }
-    return _varEmpty();
+    return varEmpty();
 }
 
 bool _arrayModify(CArray* array, size_t index, CVariant value) {

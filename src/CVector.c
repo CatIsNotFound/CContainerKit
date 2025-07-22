@@ -80,7 +80,7 @@ CVector _arrayToVector(CArray* array, bool delete_array, bool* ok) {
     }
     if (delete_array) {
         for (size_t i = 0; i < array->length; ++i) {
-            array->elements[i] = _varEmpty();
+            array->elements[i] = varEmpty();
         }
         _destroyArray(array);
     }
@@ -99,7 +99,7 @@ CArray _vectorToArray(CVector* vector, bool delete_vector, bool* ok) {
     }
     if (delete_vector) {
         for (size_t i = 0; i < vector->length; ++i) {
-            vector->elements[i] = _varEmpty();
+            vector->elements[i] = varEmpty();
         }
         _destroyVector(vector);
     }
@@ -172,7 +172,7 @@ void _vectorInsertFromArray(CVector* vector, size_t index, CArray* array) {
 }
 
 void _vectorRemove(CVector* vector, size_t start_pos, size_t count) {
-    _vectorFill(vector, start_pos, count, _varEmpty());
+    _vectorFill(vector, start_pos, count, varEmpty());
     for (size_t i = start_pos; i < vector->length - count; ++i) {
         vector->elements[i] = vector->elements[i + count];
     }
@@ -180,7 +180,7 @@ void _vectorRemove(CVector* vector, size_t start_pos, size_t count) {
 }
 
 void _vectorClear(CVector *vector) {
-    _vectorFill(vector, 0, vector->length, _varEmpty());
+    _vectorFill(vector, 0, vector->length, varEmpty());
     vector->length = 0;
 }
 
@@ -206,7 +206,7 @@ CVariant _vectorAt(CVector* vector, size_t index) {
     if (index < vector->length) {
         return vector->elements[index];
     }
-    return _varEmpty();
+    return varEmpty();
 }
 
 bool _vectorModify(CVector* vector, size_t index, CVariant new_value) {

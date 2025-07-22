@@ -55,7 +55,7 @@ const char* _varTypeName(CVariant* variant) {
     }
 }
 
-CVariant _varEmpty(void) {
+CVariant varEmpty(void) {
     CVariant new_variant;
     new_variant.data_type = TYPE_NULL;
     new_variant.value = (void*)0;

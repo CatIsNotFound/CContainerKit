@@ -16,7 +16,6 @@ CVector vectorInitType(dataType data_type, size_t length);
 CVector vectorList(size_t length, ...);
 CVector _arrayToVector(CArray* array, bool delete_array, bool* ok);
 CArray _vectorToArray(CVector* vector, bool delete_vector, bool* ok);
-void _expandVector(CVector* vector);
 void _resizeVector(CVector* vector, size_t new_size);
 void _destroyVector(CVector* vector);
 void _deleteVector(CVector* vector);
