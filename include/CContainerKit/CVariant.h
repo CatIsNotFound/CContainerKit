@@ -62,11 +62,10 @@ struct Variant {
 
 #include "CDebug.h"
 
-const char* _getTypeName(dataType d_type);
 const char* _varTypeName(CVariant* variant);
 #define varTypeName(variant)    _varTypeName(&variant)
 
-CVariant _varEmpty(void);
+CVariant varEmpty(void);
 CVariant _varBool(bool value);
 CVariant _varInt8(int8_t value);
 CVariant _varUInt8(uint8_t value);

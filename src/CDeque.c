@@ -107,18 +107,18 @@ bool _dequeIsElementContain(CDeque* deque, CVariant key) {
 }
 
 CVariant _dequeAt(CDeque* deque, size_t index) {
-    if (index >= deque->my_deque.length) return _varEmpty();
+    if (index >= deque->my_deque.length) return varEmpty();
     return vecAt(deque->my_deque, index);
 }
 
 CVariant _dequeHead(CDeque* deque) {
     if (deque->my_deque.length) return deque->my_deque.elements[0];
-    else return _varEmpty();
+    else return varEmpty();
 }
 
 CVariant _dequeTail(CDeque* deque) {
     if (deque->my_deque.length) return deque->my_deque.elements[deque->my_deque.length - 1];
-    else return _varEmpty();
+    else return varEmpty();
 }
 
 uint32_t _dequeIndexOf(CDeque* deque, CVariant key, size_t start_pos) {

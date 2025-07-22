@@ -37,7 +37,7 @@ void _clearList(CLinkedList* linked_list) {
     CNode* clear_node = linked_list->head;
     while (clear_node) {
         CNode* next_node = clear_node->next;
-        _nodeModifyData(clear_node, _varEmpty(), true);
+        _nodeModifyData(clear_node, varEmpty(), true);
         clear_node = next_node;
     }
     linked_list->head = NULL;
@@ -133,7 +133,7 @@ CNode* _getNodeFromList(CLinkedList* linked_list, size_t depth, bool reverse) {
 
 CVariant _getNodeDataFromList(CLinkedList* linked_list, size_t depth, bool reverse) {
     CNode* ret = _getNodeFromList(linked_list, depth, reverse);
-    return (ret ? ret->data : _varEmpty());
+    return (ret ? ret->data : varEmpty());
 }
 
 CNode *_findNodeFromList(CLinkedList *linked_list, CVariant *variant, bool (*compare)(CVariant, CVariant)) {

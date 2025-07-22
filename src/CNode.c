@@ -40,7 +40,7 @@ void _nodeModifyData(CNode *node, CVariant data, bool delete_original_data) {
 }
 
 CVariant _nodeData(CNode* node) {
-    return (node ? node->data : _varEmpty());
+    return (node ? node->data : varEmpty());
 }
 
 void _nodeConnect(CNode* node1, CNode* node2) {

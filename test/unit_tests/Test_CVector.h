@@ -37,7 +37,7 @@ static void cvec_test1(void) {
         }
         printf("\n");
     }
-    vecFillAll(vector3, _varEmpty()); 
+    vecFillAll(vector3, varEmpty()); 
     destroyVector(vector1);
     destroyVector(vector2);
     destroyVector(vector3);

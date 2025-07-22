@@ -94,13 +94,13 @@ bool _stackIsElementContain(CStack* stack, CVariant key) {
 }
 
 CVariant _stackAt(CStack* stack, size_t index) {
-    if (index >= stack->my_stack.length) return _varEmpty();
+    if (index >= stack->my_stack.length) return varEmpty();
     return vecAt(stack->my_stack, index);
 }
 
 CVariant _stackTop(CStack* stack) {
     if (stack->my_stack.length) return stack->my_stack.elements[stack->my_stack.length - 1];
-    else return _varEmpty();
+    else return varEmpty();
 }
 
 uint32_t _stackIndexOf(CStack* stack, CVariant key, size_t start_pos) {

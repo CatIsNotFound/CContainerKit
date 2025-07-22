@@ -19,6 +19,16 @@ bool _cstrCaseIsEqual(const char* s1, const char* s2) {
     return true;
 }
 
+void _strFillZero(CString* string) {
+    _cstrset(string->data, 0);
+}
+
+void _allocateData(CString* string, size_t new_length) {
+    string->data = (char *) calloc(new_length + 1, sizeof(char));
+    _cstrset(string->data, 0);
+    string->capacity = new_length + 1;
+}
+
 CString string(const char* str) {
     CString new_str;
     size_t new_length = strlen(str);
@@ -39,12 +49,6 @@ CString strInit(const char ch, size_t length) {
     return new_str;
 }
 
-void _allocateData(CString* string, size_t new_length) {
-    string->data = (char *) calloc(new_length + 1, sizeof(char));
-    _cstrset(string->data, 0);
-    string->capacity = new_length + 1;
-}
-
 void _destroyData(CString* string) {
     if (string->data) {
         free(string->data);
@@ -55,10 +59,6 @@ void _destroyString(CString* string) {
     _destroyData(string);
     string->data = NULL;
     string->length = 0;
-}
-
-void _strFillZero(CString* string) {
-    _cstrset(string->data, 0);
 }
 
 
