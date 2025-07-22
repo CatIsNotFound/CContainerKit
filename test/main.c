@@ -4,6 +4,7 @@
 #include "unit_tests/Test_CStack.h"
 #include  "unit_tests/Test_CDeque.h"
 #include "unit_tests/Test_CString.h"
+#include "unit_tests/Test_CLinkedList.h"
 #include "unit_tests/Test_CDebug.h"
 #include <string.h>
 
@@ -16,22 +17,24 @@ int main(int argc, const char* argv[]) {
                "- vector\n"
                "- stack\n"
                "- deque\n"
-               "- debug"
+               "- debug\n"
                "e.g: To test [CArray], just type: %s array\n", argv[0]);
         return 1;
     }
     if (!strcmp(argv[1], "array")) {
-        CArray_test();
+        CArray_test(); 
     } else if (!strcmp(argv[1], "string")) {
-        CString_test();
+        CString_test(); 
     } else if (!strcmp(argv[1], "vector")) {
-        CVector_test();
+        CVector_test(); 
     } else if (!strcmp(argv[1], "stack")) {
-        CStack_test();
+        CStack_test(); 
     } else if (!strcmp(argv[1], "deque")) {
         CDeque_test();
+    } else if (!strcmp(argv[1], "list")) {
+        CLinkedList_Test();
     } else if (!strcmp(argv[1], "debug")) {
-        CDebug_test();
+        CDebug_test(); 
     } else {
         printf("Error: Unknown test case name: %s!\n", argv[1]);
     }

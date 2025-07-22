@@ -7,6 +7,8 @@
 #include "CContainerKit/CVector.h"
 #include "CContainerKit/CString.h"
 #include "CContainerKit/CStack.h"
+#include "CContainerKit/CNode.h"
+#include "CContainerKit/CLinkedList.h"
 
 
 #endif //CVECTORSUITE_CVECTORSUITE_H

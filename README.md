@@ -28,11 +28,10 @@ Visit the [APIs page](https://catisnotfound.github.io/CContainerKit-Wiki/apis/) 
 | CString | 85% | String                   |
 | CStack | 90% | Stack (Based by CVector) |
 | CDeque | 90% | Deque (Based by CVector) |
+| CLinkedList | 80% | Linked List |
 
 ## Containers that are planned to be completed in the future
-- CStack: stack.
-- CQueue: queue
-- CLinkedList: linked list.
+
 - CHashMap: a hash table.
 - CSet: Collection.
 

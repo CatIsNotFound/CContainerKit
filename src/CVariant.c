@@ -394,9 +394,11 @@ void _printVarData(CVariant* variant) {
         case TYPE_BOOL:
             printf("%s", (_varBoolValue(variant) ? "true" : "false")); break;
         case TYPE_INT8:
-            printf("%d", _varInt8Value(variant)); break;
+            int8_t v = _varInt8Value(variant);
+            printf("%c (%d)", v, v); break;
         case TYPE_UINT8:
-            printf("%d", _varUInt8Value(variant)); break;
+            uint8_t vv = _varUInt8Value(variant);
+            printf("%c (%d)", vv, vv); break;
         case TYPE_INT16:
             printf("%d", _varInt16Value(variant)); break;
         case TYPE_UINT16:
@@ -406,9 +408,9 @@ void _printVarData(CVariant* variant) {
         case TYPE_UINT32:
             printf("%d", _varUInt32Value(variant)); break;
         case TYPE_INT64:
-            printf("%ld", _varInt64Value(variant)); break;
+            printf("%lld", _varInt64Value(variant)); break;
         case TYPE_UINT64:
-            printf("%lu", _varUInt64Value(variant)); break;
+            printf("%llu", _varUInt64Value(variant)); break;
         case TYPE_FLOAT:
             if (_varFloatPtr(variant)) printf("%f", *_varFloatPtr(variant));
             else printf("(NULL)");

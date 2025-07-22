@@ -26,11 +26,10 @@
 | CString  | 85%      | 字符串             |
 | CStack | 90% | 栈 (基于 CVector)  |
 | CDeque | 90% | 队列 (基于 CVector) |
+| CLinkedList | 80% | 链表              |
 
 ## 未来计划完成的容器
-- CStack：栈。
-- CQueue：队列。
-- CLinkedList：链表。
+
 - CHashMap：哈希表。
 - CSet：集合。
 

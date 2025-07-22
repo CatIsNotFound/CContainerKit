@@ -20,6 +20,10 @@ add_library(${PROJECT_NAME} STATIC ${LIB_SOURCES}
         CStack.c
         ../include/CContainerKit/CDeque.h
         CDeque.c
+        ../include/CContainerKit/CNode.h
+        CNode.c
+        ../include/CContainerKit/CLinkedList.h
+        CLinkedList.c
 )
 
 target_include_directories(${PROJECT_NAME}
