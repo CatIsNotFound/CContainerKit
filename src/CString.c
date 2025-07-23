@@ -132,6 +132,8 @@ void _strInsertStr(CString *string, uint32_t index, const char *buffer) {
 }
 
 void _strRemoveStr(CString *string, uint32_t index, uint32_t count) {
+    if (index >= string->length || !count) return;
+    if (count > string->length - index) count = string->length - index;
     uint32_t ed_pos = (index + count >= string->length ? string->length : index + count);
     for (uint32_t i = index; i < ed_pos; ++i) {
         string->data[i] = '\0';
