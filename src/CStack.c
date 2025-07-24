@@ -46,7 +46,7 @@ CVector _stkToVector(CStack* stack, bool delete_stack, bool* ok) {
 CStack _vecToStack(CVector* vector, bool delete_vector, bool* ok) {
     if (!vector) {
         if (ok) *ok = false;
-        CStack null_stack = {};
+        CStack null_stack = stackInit(0);
         return null_stack;
     }
     CStack new_stack = stackInit(vector->length);

@@ -49,6 +49,16 @@ CString strInit(const char ch, size_t length) {
     return new_str;
 }
 
+CString varToString(CVariant variant) {
+    if (variant.data_type != TYPE_STRING) return string("");
+    CString new_str;
+    new_str.length = strlen(variant.value);
+    new_str.capacity = new_str.length * 2 + 1;
+    _allocateData(&new_str, new_str.capacity);
+    strcpy(new_str.data, variant.value);
+    return new_str;
+}
+
 void _destroyData(CString* string) {
     if (string->data) {
         free(string->data);

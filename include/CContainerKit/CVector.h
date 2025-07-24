@@ -17,6 +17,7 @@ CVector vectorList(size_t length, ...);
 CVector _arrayToVector(CArray* array, bool delete_array, bool* ok);
 CArray _vectorToArray(CVector* vector, bool delete_vector, bool* ok);
 void _resizeVector(CVector* vector, size_t new_size);
+void _shrinkToFitVector(CVector* vector, size_t new_size);
 void _destroyVector(CVector* vector);
 void _deleteVector(CVector* vector);
 void _vectorInsert(CVector* vector, size_t index, CVariant new_value);
@@ -32,6 +33,9 @@ CVector _vectorSubVec(CVector* vector, size_t start_pos, uint32_t count);
 
 #define arrToVector(array, delete_array, ok)     _arrayToVector(&array, delete_array, ok)
 #define vecToArray(vector, delete_vector, ok)    _vectorToArray(&vector, delete_vector, ok)
+#define resizeVector(vector, new_size)           _resizeVector(&vector, new_size)
+#define assignVector(vector, new_size)           _resizeVector(&vector, new_size)
+#define shrinkToFitVector(vector, new_size)      _shrinkToFitVector(&vector, new_size)
 #define destroyVector(vector)                    _destroyVector(&vector)
 #define deleteVector(vector)                     _deleteVector(&vector)
 #define vecInsertOne(vector, index, var)         _vectorInsert(&vector, index, var)

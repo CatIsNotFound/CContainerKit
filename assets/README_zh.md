@@ -20,12 +20,11 @@
 
 | 容器名称 | 完成进度 | 描述              |
 |----------|----------|-----------------|
-| CVariant | 70%      | 任意类型变量          |
-| CArray   | 90%      | 静态数组            |
-| CVector  | 85%      | 动态数组            |
+| CArray   | 85%      | 静态数组            |
+| CVector  | 90%      | 动态数组            |
 | CString  | 85%      | 字符串             |
-| CStack | 90% | 栈 (基于 CVector)  |
-| CDeque | 90% | 队列 (基于 CVector) |
+| CStack | 75% | 栈 (基于 CVector)  |
+| CDeque | 75% | 队列 (基于 CVector) |
 | CLinkedList | 80% | 链表              |
 
 ## 未来计划完成的容器

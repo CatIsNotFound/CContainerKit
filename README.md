@@ -22,12 +22,11 @@ Visit the [APIs page](https://catisnotfound.github.io/CContainerKit-Wiki/apis/) 
 
 | Container name | Completion progress | Description              |
 |----------|----------|--------------------------|
-| CVariant | 70% | Variables of any type    |
-| CArray | 90% | Static array             |
-| CVector | 85% | Dynamic array            |
+| CArray | 85% | Static array             |
+| CVector | 90% | Dynamic array            |
 | CString | 85% | String                   |
-| CStack | 90% | Stack (Based by CVector) |
-| CDeque | 90% | Deque (Based by CVector) |
+| CStack | 75% | Stack (Based by CVector) |
+| CDeque | 75% | Deque (Based by CVector) |
 | CLinkedList | 80% | Linked List |
 
 ## Containers that are planned to be completed in the future

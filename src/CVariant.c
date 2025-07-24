@@ -430,7 +430,8 @@ void _printVarData(CVariant* variant) {
         case TYPE_STRUCT:
             printf("%#x (struct)", (uint32_t)(uint64_t)_varPtr(variant)); break;
         case TYPE_ENUM:
-            printf("%d (enum)", _varUInt8Value(variant)); break;
+            VEnum* temp = (VEnum*)variant->value;
+            printf("%#x (enum)", temp->value); break;
         case TYPE_FUNCTION:
             printf("%#x (function)", (uint32_t)(uint64_t)_varPtr(variant)); break;
         case TYPE_CUSTOM:

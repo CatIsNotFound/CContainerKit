@@ -170,6 +170,27 @@ static void cvec_test6(void) {
     destroyVector(origin_vec);
 }
 
+// Test 7: Change Vector capacity.
+static void cvec_test7(void) {
+    printf("\n[Test 7]\n");
+    CVector vector = vectorInitType(TYPE_INT32, 9);
+    resizeVector(vector, 10);
+    vecFillAll(vector, varInt(100));
+    printf("Assign Vector: ");
+    for (size_t i = 0; i < vector.length; ++i) {
+        printVarData(vector.elements[i]);
+        printf(" ");
+    }
+    printf("\nLength: %u, Capacity: %u\n", vector.length, vector.capacity);
+    printf("Shrink To Fit: ");
+    shrinkToFitVector(vector, 4);
+    for (size_t i = 0; i < vector.length; ++i) {
+        printVarData(vector.elements[i]);
+        printf(" ");
+    }
+    printf("\nLength: %u, Capacity: %u\n", vector.length, vector.capacity);
+}
+
 static void CVector_test(void) {
     printf("=== CVector Test ===\n");
     cvec_test1();
@@ -178,6 +199,7 @@ static void CVector_test(void) {
     cvec_test4();
     cvec_test5();
     cvec_test6();
+    cvec_test7();
 }
 
 #endif //CVECTORSUITE_CVECTOR_TEST_H

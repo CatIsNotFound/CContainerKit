@@ -13,6 +13,7 @@ typedef struct String {
 
 CString string(const char* str);
 CString strInit(const char ch, size_t length);
+CString varToString(CVariant variant);
 void _destroyString(CString* string);
 CString _strSub(CString* str, uint32_t start_pos, uint32_t count);
 CString strList(const char* split, uint32_t count, ...);

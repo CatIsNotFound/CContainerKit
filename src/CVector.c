@@ -115,7 +115,7 @@ void _expandVector(CVector *vector) {
 void _resizeVector(CVector* vector, size_t new_size) {
     if (!vector) return;
     if (new_size < vector->capacity) {
-        throwError("Resize failed: The new size is smaller than the original size.");
+        throwError("Assign failed: The new size is smaller than the original size.");
         return;
     }
     CVariant* new_space = (CVariant*) calloc(new_size, sizeof(CVariant));
@@ -124,6 +124,25 @@ void _resizeVector(CVector* vector, size_t new_size) {
     }
     free(vector->elements);
     vector->elements = new_space;
+    vector->capacity = new_size;
+}
+
+void _shrinkToFitVector(CVector* vector, size_t new_size) {
+    if (!vector) return;
+    CVariant* new_space = (CVariant*) calloc(new_size, sizeof(CVariant));
+    size_t real_size = (new_size > vector->capacity ? vector->capacity : new_size);
+    size_t new_length = 0;
+    for (size_t i = 0; i < vector->length; ++i) {
+        if (i >= real_size) {
+            varDestroy(vector->elements[i]);
+        } else {
+            new_space[i] = vector->elements[i];
+            new_length += 1;
+        }
+    }
+    free(vector->elements);
+    vector->elements = new_space;
+    vector->length = new_length;
     vector->capacity = new_size;
 }
 

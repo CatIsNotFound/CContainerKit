@@ -2,7 +2,7 @@
 
 CArray arrayInit(size_t length) {
     CArray new_array;
-    new_array.elements = (CVariant*)calloc(length, sizeof(CVariant));
+    new_array.elements = (CVariant*)calloc(length + 1, sizeof(CVariant));
     new_array.length = length;
     for (size_t i = 0; i < new_array.length; ++i) {
         new_array.elements[i].data_type = TYPE_NULL;
@@ -13,7 +13,7 @@ CArray arrayInit(size_t length) {
 
 CArray arrayInitType(dataType data_type, size_t length) {
     CArray new_array;
-    new_array.elements = (CVariant*)calloc(length, sizeof(CVariant));
+    new_array.elements = (CVariant*)calloc(length + 1, sizeof(CVariant));
     for (size_t i = 0; i < length; ++i) {
         new_array.elements[i].data_type = data_type;
         new_array.elements[i].value = (void*)0;
@@ -25,7 +25,7 @@ CArray arrayInitType(dataType data_type, size_t length) {
 CArray arrayList(size_t length, ...) {
     va_list a_list;
     CArray new_array;
-    new_array.elements = (CVariant*)calloc(length, sizeof(CVariant));
+    new_array.elements = (CVariant*)calloc(length + 1, sizeof(CVariant));
     va_start(a_list, length);
     for (size_t i = 0; i < length; ++i) {
         new_array.elements[i] = va_arg(a_list, CVariant);
@@ -33,6 +33,19 @@ CArray arrayList(size_t length, ...) {
     va_end(a_list);
     new_array.length = length;
     return new_array;
+}
+
+void _arrayExpand(CArray *array, size_t length) {
+    if (array->length >= length) return;
+    CArray new_array;
+    new_array.elements = (CVariant*) calloc(length + 1, sizeof(CVariant));
+    new_array.length = length;
+    size_t real_len = (array->length > length ? length : array->length);
+    for (size_t i = 0; i < real_len; ++i) {
+        new_array.elements[i] = array->elements[i];
+    }
+    _destroyArray(array);
+    *array = new_array;
 }
 
 void _deleteArray(CArray* array) {
@@ -72,10 +85,14 @@ void _arrayEraseAll(CArray* array) {
     }
 }
 
-bool _arrayIsElementContain(CArray *array, CVariant key_element, size_t start_pos) {
+bool _arrayIsElementEqual(CArray *array, CVariant key_element, size_t start_pos, bool (*compare)(CVariant, CVariant)) {
     for (size_t i = start_pos; i < array->length; ++i) {
         if (key_element.data_type != array->elements[i].data_type) continue;
-        if (key_element.value != array->elements[i].value) continue;
+        if (compare) {
+            if (!compare(key_element, array->elements[i])) continue;
+        } else {
+            if (key_element.value != array->elements[i].value) continue;
+        }
         return true;
     }
     return false;
