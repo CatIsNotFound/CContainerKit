@@ -1,4 +1,5 @@
 
+#pragma once
 #ifndef CCONTAINERKIT_CSTACK_H
 #define CCONTAINERKIT_CSTACK_H
 #include "CVector.h"

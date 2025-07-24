@@ -1,4 +1,5 @@
 
+#pragma once
 #ifndef CCONTAINERKIT_CNODE_H
 #define CCONTAINERKIT_CNODE_H
 #include "CVariant.h"

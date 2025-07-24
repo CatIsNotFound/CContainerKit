@@ -1,4 +1,5 @@
 
+#pragma once
 #ifndef CCONTAINERKIT_CDEQUE_H
 #define CCONTAINERKIT_CDEQUE_H
 

@@ -1,4 +1,5 @@
 
+#pragma once
 #ifndef CCONTAINERKIT_CLINKEDLIST_H
 #define CCONTAINERKIT_CLINKEDLIST_H
 #include "CNode.h"

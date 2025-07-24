@@ -119,7 +119,7 @@ static void cdeq_test4(void) {
 }
 
 static void CDeque_test(void) {
-    printstr("=== CDeque Test ===", '\n');
+    printf("=== CDeque Test ===\n");
     cdeq_test1();
     cdeq_test2();
     cdeq_test3();

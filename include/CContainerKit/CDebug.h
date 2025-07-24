@@ -12,14 +12,9 @@
 #define CLEVEL_ERROR        "Error"
 #define CLEVEL_CRITICAL     "Critical"
 
-static char c_format[128] = "[%T] %t";
-
-void printstr(const char* string, const char end_char);
-void printstrs(bool space, bool endLine, uint32_t count, ...);
+char c_format[128] = "[%T] %t";
 
 void setMessageFormat(const char* format);
-void _strcat(char* dest, size_t start_pos, const char* src);
-char* _translate(const char* type, const char* message);
 
 void throwError(const char* message);
 void debug(const char* string);

@@ -28,7 +28,7 @@ static void cdebug_test_2(void) {
 }
 
 static void CDebug_test(void) {
-    printstr("=== CDebug Test ===", '\n');
+    printf("=== CDebug Test ===\n");
     cdebug_test_1();
     cdebug_test_2();
 }

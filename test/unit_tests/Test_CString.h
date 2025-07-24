@@ -16,11 +16,11 @@ static void cstr_test1(void) {
     stringPopFront(str3, 7);
     stringPopBack(str3, 4);
     stringPushBack(str3, "Jerry!");
-    printstr("[Test 1]", '\n');
-    printstrs(true, true, 6, "str1:", str1.data, "str2:", str2.data, "\nstr3:", str3.data);
-    printstr("Length: ", ' ');
+    printf("[Test 1]\n");
+    printf("%s %s %s %s %s %s\n", "str1:", str1.data, "str2:", str2.data, "\nstr3:", str3.data);
+    printf("Length: ");
     printf("str1: %d, str2: %d, str3: %d\n", str1.length, str2.length, str3.length);
-    printstr("Capacity: ", ' ');
+    printf("Capacity: \n");
     printf("str1: %d, str2: %d, str3: %d\n", str1.capacity, str2.capacity, str3.capacity);
     destroyString(str1);
     destroyString(str2);
@@ -32,7 +32,7 @@ static void cstr_test2(void) {
     CString str_root = string("Where there is a will, there is a way!");
     CString str_sc = stringSub(str_root, 6, 5);
     stringCopy(str_sc, "One day one apple, doctor keep me away!");
-    printstr("\n[Test 2]", '\n');
+    printf("\n[Test 2]\n");
     printf("str1: %s\nstr2[6, 10]: %s\n", str_root.data, str_sc.data);
     printf("Length: str1 %d, str2 %d; Capacity: str1 %d, str2 %d\n",
            str_root.length, str_sc.length, str_root.capacity, str_sc.capacity);
@@ -45,7 +45,7 @@ static void cstr_test3(void) {
     CString str = string("Sample Text!");
     bool b1 = stringIsEqual(str, "sample text!", false),
          b2 = stringIsEqual(str, "sample text!", true);
-    printstr("\n[Test 3]", '\n');
+    printf("\n[Test 3]\n");
     printf("String: %s\n", str.data);
     printf("Is euqal: %s\n", (b1 ? "Yes" : "No"));
     printf("Is euqal (case_sensitive): %s\n", (b2 ? "Yes" : "No"));
@@ -64,7 +64,7 @@ static void cstr_test3(void) {
 
 // Test 4: Split and Vector
 static void cstr_test4(void) {
-    printstr("\n[Test 4]", '\n');
+    printf("\n[Test 4]\n");
     CString str = string("Where there is a will, there is a way!");
     CVector vec1 = stringSplit(str, ' '),
             vec2 = stringToVector(str);
@@ -86,7 +86,7 @@ static void cstr_test4(void) {
 }
 
 static void CString_test(void) {
-    printstr("=== CString Test ===", '\n');
+    printf("=== CString Test ===\n");
     cstr_test1();
     cstr_test2();
     cstr_test3();

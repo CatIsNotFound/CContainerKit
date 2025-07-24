@@ -120,7 +120,7 @@ static void cstk_test4(void) {
 }
 
 static void CStack_test(void) {
-    printstr("=== CStack Test ===", '\n');
+    printf("=== CStack Test ===\n");
     cstk_test1();
     cstk_test2();
     cstk_test3();
