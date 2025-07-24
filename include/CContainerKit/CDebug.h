@@ -12,7 +12,7 @@
 #define CLEVEL_ERROR        "Error"
 #define CLEVEL_CRITICAL     "Critical"
 
-char c_format[128] = "[%T] %t";
+static char c_format[128] = "[%T] %t";
 
 void setMessageFormat(const char* format);
 
