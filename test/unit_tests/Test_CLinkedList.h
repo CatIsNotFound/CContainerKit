@@ -11,9 +11,9 @@ static bool compare_str(CVariant var1, CVariant var2) {
 // Test 1: Create and delete linked list.
 static void clnklst_test1(void) {
     printf("[Test 1]\n");
-    CNode *node1 = node(varInt(80)),
-          *node2 = node(varChar('A')),
-          *node3 = node(varString("Node"));
+    CNode *node1 = createNode(varInt(80)),
+          *node2 = createNode(varChar('A')),
+          *node3 = createNode(varString("Node"));
     CLinkedList lst1 = createEmptyList(),
                 lst2 = createList(3, varInt(80), varChar('A'), varString("Sky")),
                 lst3 = createNodeList(3, node1, node2, node3);
@@ -31,9 +31,9 @@ static void clnklst_test2(void) {
     Date d = {2025, 7, 22};
     float f = 3.1415926f;
     printf("\n[Test 2]\n");
-    CNode *node1 = node(varInt(80)),
-          *node2 = node(varString("Node")),
-          *node3 = node(varStruct(d, "Date"));
+    CNode *node1 = createNode(varInt(80)),
+          *node2 = createNode(varString("Node")),
+          *node3 = createNode(varStruct(d, "Date"));
     CLinkedList lst1 = createEmptyList(),
                 lst2 = createList(5, varInt(80), varBool(false), varFloat(f),
                                   varChar('A'), varString("Sky"));
@@ -72,9 +72,9 @@ static void clnklst_test3(void) {
     Date d = {2025, 7, 22};
     float f = 3.1415926f;
     printf("\n[Test 2]\n");
-    CNode *node1 = node(varInt(80)),
-            *node2 = node(varString("Node")),
-            *node3 = node(varStruct(d, "Date"));
+    CNode *node1 = createNode(varInt(80)),
+            *node2 = createNode(varString("Node")),
+            *node3 = createNode(varStruct(d, "Date"));
     CVariant origin_str = varString("Sky");
     CLinkedList lst1 = createNodeList(3, node1, node2, node3),
             lst2 = createList(5, varInt(80), varBool(false), varFloat(f),
@@ -92,7 +92,7 @@ static void clnklst_test3(void) {
         printVarData(v);
         printf(" ");
     }
-    modifyNodeData(find_key1, varString("New Value"), true);
+    nodeModifyData(find_key1, varString("New Value"), true);
     modifyNodeDataFromList(lst1, 1, varInt(2025), true, true);
     printf("\nGet List 1: (after modified)\n");
     for (size_t i = 0; i < lst1.length; ++i) {

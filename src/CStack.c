@@ -115,3 +115,6 @@ uint32_t _stackCapacity(CStack* stack) {
     return stack->my_stack.capacity;
 }
 
+bool _stackEmpty(CStack* stack) {
+    return stack->my_stack.length == 0;
+}

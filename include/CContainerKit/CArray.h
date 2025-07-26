@@ -12,9 +12,9 @@ typedef struct Array {
 CArray arrayInit(size_t length);
 CArray arrayInitType(dataType data_type, size_t length);
 CArray arrayList(size_t length, ...);
-void _arrayExpand(CArray *array, size_t length);
 void _deleteArray(CArray* array);
 void _destroyArray(CArray* array);
+void _arrayExpand(CArray *array, size_t length);
 void _arrayErase(CArray* array, size_t start_pos, size_t end_pos);
 void _arrayEraseAll(CArray* array);
 bool _arrayIsElementEqual(CArray *array, CVariant key_element, size_t start_pos, bool (*compare)(CVariant, CVariant));
@@ -22,9 +22,9 @@ size_t _arrayIndexOf(CArray *array, CVariant element, size_t start_pos);
 CVariant _arrayAt(CArray* array, size_t index);
 bool _arrayModify(CArray* array, size_t index, CVariant value);
 
-#define arrayExpand(array, new_length)           _arrayExpand(&array, new_length)
 #define deleteArray(array)                       _deleteArray(&array)
 #define destroyArray(array)                      _destroyArray(&array)
+#define arrayExpand(array, new_length)           _arrayExpand(&array, new_length)
 #define arrayErase(array, start_pos, end_pos)    _arrayErase(&array, start_pos, end_pos)
 #define arrayEraseAll(array)                     _arrayEraseAll(&array)
 #define arrayIsEqual(array, key, pos, cmp)       _arrayIsElementEqual(&array, key, pos, cmp)

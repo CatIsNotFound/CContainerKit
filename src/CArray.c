@@ -35,19 +35,6 @@ CArray arrayList(size_t length, ...) {
     return new_array;
 }
 
-void _arrayExpand(CArray *array, size_t length) {
-    if (array->length >= length) return;
-    CArray new_array;
-    new_array.elements = (CVariant*) calloc(length + 1, sizeof(CVariant));
-    new_array.length = length;
-    size_t real_len = (array->length > length ? length : array->length);
-    for (size_t i = 0; i < real_len; ++i) {
-        new_array.elements[i] = array->elements[i];
-    }
-    _destroyArray(array);
-    *array = new_array;
-}
-
 void _deleteArray(CArray* array) {
     if (array) {
         _arrayEraseAll(array);
@@ -61,6 +48,19 @@ void _destroyArray(CArray* array) {
         array->elements = NULL;
         array->length = 0;
     }
+}
+
+void _arrayExpand(CArray *array, size_t length) {
+    if (array->length >= length) return;
+    CArray new_array;
+    new_array.elements = (CVariant*) calloc(length + 1, sizeof(CVariant));
+    new_array.length = length;
+    size_t real_len = (array->length > length ? length : array->length);
+    for (size_t i = 0; i < real_len; ++i) {
+        new_array.elements[i] = array->elements[i];
+    }
+    _destroyArray(array);
+    *array = new_array;
 }
 
 void _arrayErase(CArray* array, size_t start_pos, size_t end_pos) {

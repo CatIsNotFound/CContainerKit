@@ -13,7 +13,7 @@ CLinkedList createList(size_t length, ...) {
     va_start(var_list, length);
     for (size_t i = 0; i < length; ++i) {
         CVariant new_var = va_arg(var_list, CVariant);
-        CNode* new_node = node(new_var);
+        CNode* new_node = createNode(new_var);
         _pushBackNodeToList(&new_list, new_node);
     }
     va_end(var_list);
@@ -163,9 +163,9 @@ CNode *_rfindNodeFromList(CLinkedList *linked_list, CVariant *variant, bool (*co
 void _reverseList(CLinkedList* linked_list) {
     if (linked_list->length > 1) {
         CNode *cur_node = linked_list->head;
-        swapNode(linked_list->head, linked_list->tail);
+        nodeSwap(linked_list->head, linked_list->tail);
         while (cur_node) {
-            swapNode(cur_node->prev, cur_node->next);
+            nodeSwap(cur_node->prev, cur_node->next);
             cur_node = cur_node->prev;
         }
     }

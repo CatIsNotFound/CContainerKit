@@ -133,3 +133,6 @@ uint32_t _dequeCapacity(CDeque* deque) {
     return deque->my_deque.capacity;
 }
 
+bool _dequeEmpty(CDeque* deque) {
+    return deque->my_deque.length == 0;
+}

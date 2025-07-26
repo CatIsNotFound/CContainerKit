@@ -24,6 +24,13 @@ add_library(${PROJECT_NAME} STATIC ${LIB_SOURCES}
         CNode.c
         ../include/CContainerKit/CLinkedList.h
         CLinkedList.c
+        ../include/CContainerKit/CMap.h
+        ../include/CContainerKit/CPair.h
+        CPair.c
+        CMap.c
+        ../include/CContainerKit/CAlgorithm.h
+        ../include/CContainerKit/CTree.h
+        CTree.c
 )
 
 target_include_directories(${PROJECT_NAME}

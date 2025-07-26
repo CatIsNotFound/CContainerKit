@@ -26,6 +26,7 @@ CVariant _stackTop(CStack* stack);
 uint32_t _stackIndexOf(CStack* stack, CVariant key, size_t start_pos);
 uint32_t _stackSize(CStack* stack);
 uint32_t _stackCapacity(CStack* stack);
+bool _stackEmpty(CStack* stack);
 
 
 #define stkToVector(stack, delete_stack, ok)              _stkToVector(&stack, delete_stack, ok)
@@ -44,6 +45,7 @@ uint32_t _stackCapacity(CStack* stack);
 #define stkSize(stack)                                    _stackSize(&stack)
 #define stkLength(stack)                                  stkSize(stack)
 #define stkCapacity(stack)                                _stackCapacity(&stack)
+#define stkEmpty(stack)                                   _stackEmpty(&stack)
 
 #define forEachStkElements(item, stack)          \
     item = stack.my_stack.elements[0];           \

@@ -31,6 +31,7 @@ CVariant _dequeTail(CDeque* deque);
 uint32_t _dequeIndexOf(CDeque* deque, CVariant key, size_t start_pos);
 uint32_t _dequeSize(CDeque* deque);
 uint32_t _dequeCapacity(CDeque* deque);
+bool _dequeEmpty(CDeque* deque);
 
 
 #define deqToVector(deque, delete_deque, ok)              _deqToVector(&deque, delete_deque, ok)
@@ -53,6 +54,7 @@ uint32_t _dequeCapacity(CDeque* deque);
 #define deqSize(deque)                                    _dequeSize(&deque)
 #define deqLength(deque)                                  deqSize(deque)
 #define deqCapacity(deque)                                _dequeCapacity(&deque)
+#define deqEmpty(deque)                                   _dequeEmpty(&deque)
 
 #define forEachDeqElements(item, deque)          \
     item = deque.my_deque.elements[0];           \

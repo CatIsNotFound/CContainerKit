@@ -6,6 +6,7 @@
 #include "unit_tests/Test_CString.h"
 #include "unit_tests/Test_CLinkedList.h"
 #include "unit_tests/Test_CDebug.h"
+#include "unit_tests/Test_CTree.h"
 #include <string.h>
 
 int main(int argc, const char* argv[]) {
@@ -17,6 +18,8 @@ int main(int argc, const char* argv[]) {
                "- vector\n"
                "- stack\n"
                "- deque\n"
+               "- list\n"
+               "- tree\n"
                "- debug\n"
                "e.g: To test [CArray], just type: %s array\n", argv[0]);
         return 1;
@@ -33,6 +36,8 @@ int main(int argc, const char* argv[]) {
         CDeque_test();
     } else if (!strcmp(argv[1], "list")) {
         CLinkedList_Test();
+    } else if (!strcmp(argv[1], "tree")) {
+        CTree_Test();
     } else if (!strcmp(argv[1], "debug")) {
         CDebug_test(); 
     } else {
