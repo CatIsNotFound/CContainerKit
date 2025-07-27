@@ -7,6 +7,7 @@ void print_char(CNodeT* n) {
     printf("%c ", (char)(int64_t)n->data);
 }
 
+// Test 1: Basic
 static void ctree_test1(void) {
     CTree* tree = treeInit((void*)'A');
     insertNodeToTree(tree, tree->root, true, (void*)'B');
@@ -32,6 +33,7 @@ static void ctree_test1(void) {
 }
 
 static void ctree_test2(void) {
+
 }
 
 static void CTree_Test(void) {

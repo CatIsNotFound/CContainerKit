@@ -37,7 +37,7 @@ void _clearList(CLinkedList* linked_list) {
     CNode* clear_node = linked_list->head;
     while (clear_node) {
         CNode* next_node = clear_node->next;
-        _nodeModifyData(clear_node, varEmpty(), true);
+        nodeModifyData(clear_node, varEmpty(), true);
         clear_node = next_node;
     }
     linked_list->head = NULL;
@@ -49,7 +49,7 @@ void _destroyList(CLinkedList* linked_list) {
     CNode* del_node = linked_list->head;
     while (del_node) {
         CNode* next_node = del_node->next;
-        _nodeRemoveOne(del_node);
+        nodeRemoveOne(del_node);
         del_node = next_node;
     }
     linked_list->head = NULL;
@@ -59,7 +59,7 @@ void _destroyList(CLinkedList* linked_list) {
 
 void _pushBackNodeToList(CLinkedList* linked_list, CNode* new_node) {
     if (linked_list->length) {
-        _nodeConnect(linked_list->tail, new_node);
+        nodeConnect(linked_list->tail, new_node);
         linked_list->tail = new_node;
     } else {
         linked_list->head = new_node;
@@ -70,7 +70,7 @@ void _pushBackNodeToList(CLinkedList* linked_list, CNode* new_node) {
 
 void _pushFrontNodeToList(CLinkedList* linked_list, CNode* new_node) {
     if (linked_list->length) {
-        _nodeConnect(new_node, linked_list->head);
+        nodeConnect(new_node, linked_list->head);
         linked_list->head = new_node;
     } else {
         linked_list->head = new_node;
@@ -82,7 +82,7 @@ void _pushFrontNodeToList(CLinkedList* linked_list, CNode* new_node) {
 void _popBackNodeFromList(CLinkedList* linked_list) {
     if (linked_list->length == 0) return;
     CNode* new_tail = linked_list->tail->prev;
-    _nodeRemoveOne(linked_list->tail);
+    nodeRemoveOne(linked_list->tail);
     linked_list->tail = new_tail;
     linked_list->length -= 1;
 }
@@ -90,7 +90,7 @@ void _popBackNodeFromList(CLinkedList* linked_list) {
 void _popFrontNodeFromList(CLinkedList* linked_list) {
     if (linked_list->length == 0) return;
     CNode* new_head = linked_list->head->next;
-    _nodeRemoveOne(linked_list->head);
+    nodeRemoveOne(linked_list->head);
     linked_list->head = new_head;
     linked_list->length -= 1;
 }
@@ -100,9 +100,9 @@ void _insertNodeToList(CLinkedList* linked_list, CNode* index_node, CNode* add_n
     if (index_node == linked_list->head) _pushFrontNodeToList(linked_list, add_new_one);
     else if (index_node == linked_list->tail) _pushBackNodeToList(linked_list, add_new_one);
     else {
-        _nodeConnect(index_node, add_new_one);
+        nodeConnect(index_node, add_new_one);
         if (add_new_one->next) {
-            _nodeConnect(add_new_one, add_new_one->next);
+            nodeConnect(add_new_one, add_new_one->next);
         }
         linked_list->length += 1;
     }
@@ -115,7 +115,7 @@ void _removeNodeToList(CLinkedList* linked_list, CNode* remove_one) {
     } else if (remove_one == linked_list->tail) {
         _popBackNodeFromList(linked_list);
     } else {
-        _nodeRemoveOne(remove_one);
+        nodeRemoveOne(remove_one);
         linked_list->length -= 1;
     }
 }

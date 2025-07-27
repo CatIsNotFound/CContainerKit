@@ -24,7 +24,7 @@ bool insertNodeToTree(CTree* tree, CNodeT* parent, bool direction, void* data) {
         tree->size = 1;
         return true;
     }
-    if (_connectNodeT(parent, new_sub_node, direction)) {
+    if (connectNodeT(parent, new_sub_node, direction)) {
         tree->size += 1;
         return true;
     }
@@ -34,11 +34,12 @@ bool insertNodeToTree(CTree* tree, CNodeT* parent, bool direction, void* data) {
 bool removeNodeFromTree(CTree* tree, CNodeT* node, bool delete_node) {
     if (!tree || !tree->root || !node) return false;
     if (delete_node) {
-        if (!_disconnectNodeT(node)) return false;
-        tree->size -= 1;
-        return _destroyNodeT(node, true);
+        if (!disconnectNodeT(node)) return false;
+        return destroyNodeT(node, true);
     }
-    return _disconnectNodeT(node);
+    bool ret = disconnectNodeT(node);
+    tree->size -= ret;
+    return ret;
 }
 
 void _preOrderVisit(CNodeT *node, void (*visit)(void*)) {
@@ -128,13 +129,13 @@ void* findDataFromTree(CTree* tree, void* find_data, bool (*compare)(void*, void
 }
 
 void _clearNodeT(CNodeT* node) {
-    _disconnectNodeT(node);
-    _destroyNodeT(node, true);
+    disconnectNodeT(node);
+    destroyNodeT(node, true);
 }
 
 void _clearDeleteNodeT(CNodeT* node) {
-    _disconnectNodeT(node);
-    _destroyNodeT(node, false);
+    disconnectNodeT(node);
+    destroyNodeT(node, false);
 }
 
 void clearTree(CTree *tree, bool delete_data) {

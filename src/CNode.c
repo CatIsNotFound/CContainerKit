@@ -9,7 +9,7 @@ CNode* createNode(CVariant data) {
     return new_node;
 }
 
-void _destroyNode(CNode* node) {
+void destroyNode(CNode* node) {
     if (node->prev) {
         node->prev->next = node->next;
     }
@@ -23,7 +23,7 @@ void _destroyNode(CNode* node) {
     node = NULL;
 }
 
-void _nodeModifyData(CNode *node, CVariant data, bool delete_original_data) {
+void nodeModifyData(CNode *node, CVariant data, bool delete_original_data) {
     if (!node) return;
     if (delete_original_data) {
         varDestroy(node->data);
@@ -31,11 +31,11 @@ void _nodeModifyData(CNode *node, CVariant data, bool delete_original_data) {
     node->data = data;
 }
 
-CVariant _nodeData(CNode* node) {
+CVariant nodeData(CNode* node) {
     return (node ? node->data : varEmpty());
 }
 
-void _nodeConnect(CNode* node1, CNode* node2) {
+void nodeConnect(CNode* node1, CNode* node2) {
     if (!node1 || !node2) {
         throwError("Connection Node: node1 or node2 is null.");
         return;
@@ -52,15 +52,15 @@ void _nodeConnect(CNode* node1, CNode* node2) {
     node1->next = node2;
 }
 
-void _nodeRemoveOne(CNode *node) {
+void nodeRemoveOne(CNode *node) {
     if (!node) {
         throwError("Disconnection Node: The specified createNode is not valid!");
         return;
     }
-    _destroyNode(node);
+    destroyNode(node);
 }
 
-CVariant _nodeRelease(CNode* node) {
+CVariant nodeRelease(CNode* node) {
     CVariant var = node->data;
     if (node->prev) {
         node->prev->next = node->next;
@@ -89,7 +89,7 @@ CNodeT *createNodeT(void *data) {
     return new_node;
 }
 
-bool _destroyNodeT(CNodeT *node, bool delete_data) {
+bool destroyNodeT(CNodeT *node, bool delete_data) {
     if (node) {
         if (node->left || node->right || node->head) {
             throwError("Destroy NodeT: The current createNode is not an independent node and cannot be deleted!");
@@ -106,7 +106,7 @@ bool _destroyNodeT(CNodeT *node, bool delete_data) {
     return false;
 }
 
-void _modifyFromNodeT(CNodeT* node, void* data, bool delete_data) {
+void modifyFromNodeT(CNodeT* node, void* data, bool delete_data) {
     if (node) {
         void* old_data = NULL;
         if (delete_data) {
@@ -118,11 +118,11 @@ void _modifyFromNodeT(CNodeT* node, void* data, bool delete_data) {
     }
 }
 
-void* _getDataFromNodeT(CNodeT* node) {
+void* getDataFromNodeT(CNodeT* node) {
     return (node ? node->data : NULL);
 }
 
-bool _connectNodeT(CNodeT* root_node, CNodeT* sub_node, bool direction) {
+bool connectNodeT(CNodeT* root_node, CNodeT* sub_node, bool direction) {
     if (!root_node || !sub_node) {
         throwError("Connect NodeT: The root node or sub node is null!");
         return false;
@@ -148,7 +148,7 @@ bool _connectNodeT(CNodeT* root_node, CNodeT* sub_node, bool direction) {
     return true;
 }
 
-bool _disconnectNodeT(CNodeT* node) {
+bool disconnectNodeT(CNodeT* node) {
     if (node->left || node->right) {
         throwError("Disconnect NodeT: Please disconnect all child nodes under this createNode first!");
         return false;
@@ -162,7 +162,7 @@ bool _disconnectNodeT(CNodeT* node) {
     return true;
 }
 
-void* _releaseNodeT(CNodeT* node) {
+void* releaseNodeT(CNodeT* node) {
     if (node->left || node->right) {
         throwError("Release NodeT: Delete all child nodes under this createNode first!");
         return NULL;

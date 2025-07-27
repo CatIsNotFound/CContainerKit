@@ -27,6 +27,7 @@ void* findDataFromTree(CTree* tree, void* find_data, bool (*compare)(void*, void
 void clearTree(CTree *tree, bool delete_data);
 
 size_t getDepthTree(CTree* tree);
-#define addRootNodeToTree(tree, data)   insertNodeToTree(tree, NULL, false, data)
+
+#define addFirstNodeToTree(tree, data)   insertNodeToTree(tree, NULL, false, data)
 
 #endif //CCONTAINERKIT_CTREE_H
