@@ -33,11 +33,12 @@ bool insertNodeToTree(CTree* tree, CNodeT* parent, bool direction, void* data) {
 
 bool removeNodeFromTree(CTree* tree, CNodeT* node, bool delete_node) {
     if (!tree || !tree->root || !node) return false;
+    bool ret = true;
+    CNodeT* del_node = disconnectNodeT(node);
+    if (!del_node) return false;
     if (delete_node) {
-        if (!disconnectNodeT(node)) return false;
-        return destroyNodeT(node, true);
+        ret = destroyNodeT(node, true);
     }
-    bool ret = disconnectNodeT(node);
     tree->size -= ret;
     return ret;
 }
@@ -129,13 +130,11 @@ void* findDataFromTree(CTree* tree, void* find_data, bool (*compare)(void*, void
 }
 
 void _clearNodeT(CNodeT* node) {
-    disconnectNodeT(node);
-    destroyNodeT(node, true);
+    destroyNodeT(disconnectNodeT(node), true);
 }
 
 void _clearDeleteNodeT(CNodeT* node) {
-    disconnectNodeT(node);
-    destroyNodeT(node, false);
+    destroyNodeT(disconnectNodeT(node), false);
 }
 
 void clearTree(CTree *tree, bool delete_data) {

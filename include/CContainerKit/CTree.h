@@ -11,7 +11,7 @@ typedef enum OrderTraversal {
     POSTORDER
 } OrderTraversal;
 
-typedef struct TreeNode {
+typedef struct Tree {
     CNodeT* root;
     uint64_t size;
 } CTree;

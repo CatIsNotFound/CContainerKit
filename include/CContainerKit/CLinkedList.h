@@ -48,7 +48,7 @@ void _reverseList(CLinkedList* linked_list);
 
 #define modifyNodeDataFromList(linked_list, depth, new_var, del_old_var, reverse) \
     CNode* _ret_node = _getNodeFromList(&linked_list, depth, reverse);            \
-    _nodeModifyData(_ret_node, new_var, del_old_var);
+    nodeModifyData(_ret_node, new_var, del_old_var);
 
 #define forEachListNodePtr(node, linked_list) \
     node = linked_list.head;                  \

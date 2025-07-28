@@ -137,8 +137,6 @@ static void clnklst_test3(void) {
 
 }
 
-
-
 static void CLinkedList_Test(void) {
     printf("=== CLinkedList Test ===\n");
     clnklst_test1();

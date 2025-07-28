@@ -9,7 +9,8 @@ void print_char(CNodeT* n) {
 
 // Test 1: Basic
 static void ctree_test1(void) {
-    CTree* tree = treeInit((void*)'A');
+    CTree* tree = treeInit(NULL);
+    addFirstNodeToTree(tree, (void*)'A');
     insertNodeToTree(tree, tree->root, true, (void*)'B');
     insertNodeToTree(tree, tree->root, false, (void*)'E');
     insertNodeToTree(tree, tree->root->left, true, (void*)'C');
@@ -18,7 +19,7 @@ static void ctree_test1(void) {
     insertNodeToTree(tree, tree->root->right, false, (void*)'G');
     removeNodeFromTree(tree, tree->root->right->left, false);
     removeNodeFromTree(tree, tree->root->right->right, false);
-    modifyFromNodeT(tree->root, (void *) 'R', false);
+    // modifyFromNodeT(tree->root, (void *) 'R', false);
     printf("Tree Size: %zu, Depth: %zu\n", tree->size, getDepthTree(tree));
     printf("Preorder Numbers: ");
     forEachNodeFromTree(tree, PREORDER, print_char);

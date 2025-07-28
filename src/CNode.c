@@ -54,7 +54,7 @@ void nodeConnect(CNode* node1, CNode* node2) {
 
 void nodeRemoveOne(CNode *node) {
     if (!node) {
-        throwError("Disconnection Node: The specified createNode is not valid!");
+        throwError("Disconnection Node: The specified node is not valid!");
         return;
     }
     destroyNode(node);
@@ -92,7 +92,7 @@ CNodeT *createNodeT(void *data) {
 bool destroyNodeT(CNodeT *node, bool delete_data) {
     if (node) {
         if (node->left || node->right || node->head) {
-            throwError("Destroy NodeT: The current createNode is not an independent node and cannot be deleted!");
+            throwError("Destroy NodeT: The current node is not an independent node and cannot be deleted!");
             return false;
         }
         if (delete_data && node->data) {
@@ -128,18 +128,18 @@ bool connectNodeT(CNodeT* root_node, CNodeT* sub_node, bool direction) {
         return false;
     }
     if (sub_node->head) {
-        throwError("Connect NodeT: This child createNode has been connected by other nodes.");
+        throwError("Connect NodeT: This child node has been connected by other nodes.");
         return false;
     }
     if (direction) {
         if (root_node->left) {
-            throwError("Connect NodeT: The left node of this createNode already exists!");
+            throwError("Connect NodeT: The left node of this node already exists!");
             return false;
         }
         root_node->left = sub_node;
     } else {
         if (root_node->right) {
-            throwError("Connect NodeT: The right node of this createNode already exists!");
+            throwError("Connect NodeT: The right node of this node already exists!");
             return false;
         }
         root_node->right = sub_node;
@@ -148,23 +148,27 @@ bool connectNodeT(CNodeT* root_node, CNodeT* sub_node, bool direction) {
     return true;
 }
 
-bool disconnectNodeT(CNodeT* node) {
-    if (node->left || node->right) {
-        throwError("Disconnect NodeT: Please disconnect all child nodes under this createNode first!");
-        return false;
+CNodeT* disconnectNodeT(CNodeT* node) {
+    if (!node) return NULL;
+    if (node->left && node->right) {
+        throwError("Can't disconnect the specified node!");
+        return NULL;
     }
     CNodeT* head = node->head;
     if (head) {
-        if (head->left == node) head->left = NULL;
-        if (head->right == node) head->right = NULL;
+        if (head->left == node) head->left = node->left;
+        if (head->right == node) head->right = node->right;
     }
     node->head = NULL;
-    return true;
+    node->left = NULL;
+    node->right = NULL;
+    return node;
 }
 
 void* releaseNodeT(CNodeT* node) {
+    if (!node) return NULL;
     if (node->left || node->right) {
-        throwError("Release NodeT: Delete all child nodes under this createNode first!");
+        throwError("Release NodeT: Delete all child nodes under this node first!");
         return NULL;
     }
     CNodeT* head = node->head;
