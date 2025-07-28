@@ -34,7 +34,7 @@ void modifyFromNodeT(CNodeT* node, void* data, bool delete_data);
 void* getDataFromNodeT(CNodeT* node);
 bool connectNodeT(CNodeT* root_node, CNodeT* sub_node, bool direction);
 
-CNodeT * disconnectNodeT(CNodeT* node);
+bool disconnectNodeT(CNodeT* node);
 void* releaseNodeT(CNodeT* node);
 void _swapNodeT(CNodeT** node1, CNodeT** node2);
 

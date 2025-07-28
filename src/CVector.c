@@ -115,10 +115,14 @@ void _expandVector(CVector *vector) {
 void _resizeVector(CVector* vector, size_t new_size) {
     if (!vector) return;
     if (new_size < vector->capacity) {
-        throwError("Assign failed: The new size is smaller than the original size.");
+        throwError("Resize vector failed: The new size is smaller than the original size.");
         return;
     }
     CVariant* new_space = (CVariant*) calloc(new_size, sizeof(CVariant));
+    if (!new_space) {
+        throwError("Resize vector failed: No enough memory to alloc!");
+        return;
+    }
     for (size_t i = 0; i < vector->length; ++i) {
         new_space[i] = vector->elements[i];
     }
@@ -176,11 +180,16 @@ void _vectorInsert(CVector* vector, size_t index, CVariant new_value) {
 }
 
 void _vectorInsertFromArray(CVector* vector, size_t index, CArray* array) {
+    if (!vector || !array) {
+        throwError("Vector insert from array: The specifed vector or array is not valid!");
+        return;
+    }
     size_t steps = array->length;
-    size_t new_size = vector->length + array->length;
+    size_t new_size = vector->length + steps;
     if (new_size >= vector->capacity) {
         _resizeVector(vector, new_size * 2);
     }
+    index = (index >= vector->length ? vector->length : index);
     for (size_t i = 0; i < new_size - index; ++i) {
         vector->elements[new_size - i] = vector->elements[new_size - i - steps];
     }

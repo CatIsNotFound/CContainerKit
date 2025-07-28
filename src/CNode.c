@@ -91,16 +91,10 @@ CNodeT *createNodeT(void *data) {
 
 bool destroyNodeT(CNodeT *node, bool delete_data) {
     if (node) {
-        if (node->left || node->right || node->head) {
-            throwError("Destroy NodeT: The current node is not an independent node and cannot be deleted!");
-            return false;
-        }
         if (delete_data && node->data) {
             free(node->data);
         }
-        node->head = NULL;
-        node->left = NULL;
-        node->right = NULL;
+        free(node);
         return true;
     }
     return false;
@@ -148,11 +142,11 @@ bool connectNodeT(CNodeT* root_node, CNodeT* sub_node, bool direction) {
     return true;
 }
 
-CNodeT* disconnectNodeT(CNodeT* node) {
-    if (!node) return NULL;
+bool disconnectNodeT(CNodeT* node) {
+    if (!node) return false;
     if (node->left && node->right) {
         throwError("Can't disconnect the specified node!");
-        return NULL;
+        return false;
     }
     CNodeT* head = node->head;
     if (head) {
@@ -162,7 +156,7 @@ CNodeT* disconnectNodeT(CNodeT* node) {
     node->head = NULL;
     node->left = NULL;
     node->right = NULL;
-    return node;
+    return true;
 }
 
 void* releaseNodeT(CNodeT* node) {

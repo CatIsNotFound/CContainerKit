@@ -189,6 +189,7 @@ static void cvec_test7(void) {
         printf(" ");
     }
     printf("\nLength: %u, Capacity: %u\n", vector.length, vector.capacity);
+    destroyVector(vector);
 }
 
 static void CVector_test(void) {

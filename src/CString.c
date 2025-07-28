@@ -30,6 +30,11 @@ void _allocateData(CString* string, size_t new_length) {
 }
 
 CString string(const char* str) {
+    if (!str) {
+        throwError("CString Error: The specified string is not valid!");
+        CString empty_str = {NULL, 0, 0};
+        return empty_str;
+    }
     CString new_str;
     size_t new_length = strlen(str);
     _allocateData(&new_str, new_length * 2);

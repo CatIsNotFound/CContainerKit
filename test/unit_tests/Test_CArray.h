@@ -48,7 +48,7 @@ static void carr_test2(void) {
         printf(" %s, ", varTypeName(arr.elements[i]));
     }
     printf("\n");
-    destroyArray(arr);
+    deleteArray(arr);
 }
 
 // Test 3: Modify and access the elements in array.

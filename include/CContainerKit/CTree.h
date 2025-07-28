@@ -16,10 +16,12 @@ typedef struct Tree {
     uint64_t size;
 } CTree;
 
-CTree* treeInit(void* data);
+CTree* treeEmpty(void);
+CTree* treeCreateRoot(void* data);
 void destroyTree(CTree *tree, bool delete_data);
 bool insertNodeToTree(CTree* tree, CNodeT* parent, bool direction, void* data);
-bool removeNodeFromTree(CTree* tree, CNodeT* node, bool delete_node);
+
+bool removeNodeFromTree(CTree *tree, CNodeT *node, bool delete_node, bool delete_data);
 
 void forEachNodeDataFromTree(CTree* tree, OrderTraversal order, void (*visit)(void*));
 void forEachNodeFromTree(CTree* tree, OrderTraversal order, void (*visit)(CNodeT*));

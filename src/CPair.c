@@ -9,11 +9,11 @@ CPair pair(void* key, CVariant value) {
 }
 
 void _destroyPair(CPair* pair) {
-    varDestroy(pair->key);
+    // varDestroy(pair->key);
 }
 
 void _deletePair(CPair* pair) {
-    varDestroy(pair->key);
+    // varDestroy(pair->key);
     varDestroy(pair->value);
 }
 

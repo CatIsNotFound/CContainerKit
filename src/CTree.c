@@ -1,9 +1,17 @@
 
 #include "CContainerKit/CTree.h"
 
-CTree* treeInit(void* data) {
+CTree* treeEmpty(void) {
     CTree* new_tree = (CTree*) malloc(sizeof(CTree));
-    new_tree->size = (data != NULL);
+    new_tree->size = 0;
+    new_tree->root = NULL;
+    return new_tree;
+}
+
+CTree* treeCreateRoot(void* data) {
+    if (!data) return treeEmpty();
+    CTree* new_tree = (CTree*) malloc(sizeof(CTree));
+    new_tree->size = 1;
     new_tree->root = createNodeT(data);
     return new_tree;
 }
@@ -19,7 +27,7 @@ void destroyTree(CTree *tree, bool delete_data) {
 bool insertNodeToTree(CTree* tree, CNodeT* parent, bool direction, void* data) {
     if (!tree) return false;
     CNodeT* new_sub_node = createNodeT(data);
-    if (!tree->root && !parent) {
+    if (!parent && !tree->root) {
         tree->root = new_sub_node;
         tree->size = 1;
         return true;
@@ -31,13 +39,12 @@ bool insertNodeToTree(CTree* tree, CNodeT* parent, bool direction, void* data) {
     return false;
 }
 
-bool removeNodeFromTree(CTree* tree, CNodeT* node, bool delete_node) {
+bool removeNodeFromTree(CTree *tree, CNodeT *node, bool delete_node, bool delete_data) {
     if (!tree || !tree->root || !node) return false;
     bool ret = true;
-    CNodeT* del_node = disconnectNodeT(node);
-    if (!del_node) return false;
+    if (!disconnectNodeT(node)) return false;
     if (delete_node) {
-        ret = destroyNodeT(node, true);
+        ret = destroyNodeT(node, delete_data);
     }
     tree->size -= ret;
     return ret;
@@ -130,11 +137,11 @@ void* findDataFromTree(CTree* tree, void* find_data, bool (*compare)(void*, void
 }
 
 void _clearNodeT(CNodeT* node) {
-    destroyNodeT(disconnectNodeT(node), true);
+    destroyNodeT(node, false);
 }
 
 void _clearDeleteNodeT(CNodeT* node) {
-    destroyNodeT(disconnectNodeT(node), false);
+    destroyNodeT(node, true);
 }
 
 void clearTree(CTree *tree, bool delete_data) {
