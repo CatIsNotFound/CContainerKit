@@ -26,18 +26,22 @@ typedef struct NodeT {
     struct NodeT* head;
     struct NodeT* left;
     struct NodeT* right;
+    size_t depth;
 } CNodeT;
 
 CNodeT* createNodeT(void *data);
 bool destroyNodeT(CNodeT *node, bool delete_data);
-void modifyFromNodeT(CNodeT* node, void* data, bool delete_data);
+void setDataFromNodeT(CNodeT* node, void* data, bool delete_data);
 void* getDataFromNodeT(CNodeT* node);
 bool connectNodeT(CNodeT* root_node, CNodeT* sub_node, bool direction);
 
 bool disconnectNodeT(CNodeT* node);
 void* releaseNodeT(CNodeT* node);
+void _swapDataNodeT(CNodeT** node1, CNodeT** node2);
 void _swapNodeT(CNodeT** node1, CNodeT** node2);
 
+#define swapDataNodeT(node1, node2)                         _swapDataNodeT(&node1, &node2)
 #define swapNodeT(node1, node2)                         _swapNodeT(&node1, &node2)
+
 
 #endif //CCONTAINERKIT_CNODE_H

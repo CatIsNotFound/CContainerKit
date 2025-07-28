@@ -86,6 +86,7 @@ CNodeT *createNodeT(void *data) {
     new_node->head = NULL;
     new_node->left = NULL;
     new_node->right = NULL;
+    new_node->depth = 1;
     return new_node;
 }
 
@@ -100,7 +101,7 @@ bool destroyNodeT(CNodeT *node, bool delete_data) {
     return false;
 }
 
-void modifyFromNodeT(CNodeT* node, void* data, bool delete_data) {
+void setDataFromNodeT(CNodeT* node, void* data, bool delete_data) {
     if (node) {
         void* old_data = NULL;
         if (delete_data) {
@@ -139,6 +140,7 @@ bool connectNodeT(CNodeT* root_node, CNodeT* sub_node, bool direction) {
         root_node->right = sub_node;
     }
     sub_node->head = root_node;
+    sub_node->depth = root_node->depth + 1;
     return true;
 }
 
@@ -150,12 +152,19 @@ bool disconnectNodeT(CNodeT* node) {
     }
     CNodeT* head = node->head;
     if (head) {
-        if (head->left == node) head->left = node->left;
-        if (head->right == node) head->right = node->right;
+        if (head->left == node) {
+            head->left = node->left;
+            if (node->left) node->left->depth = head->left->depth + 1;
+        }
+        if (head->right == node) {
+            head->right = node->right;
+            if (node->right) node->right->depth = head->right->depth + 1;
+        }
     }
     node->head = NULL;
     node->left = NULL;
     node->right = NULL;
+    node->depth = 1;
     return true;
 }
 
@@ -174,7 +183,7 @@ void* releaseNodeT(CNodeT* node) {
     return data;
 }
 
-void _swapNodeT(CNodeT** node1, CNodeT** node2) {
+void _swapDataNodeT(CNodeT** node1, CNodeT** node2) {
     CNodeT* temp1_node = *node1;
     CNodeT* temp2_node = *node2;
     void* temp_data = temp1_node->data;
@@ -182,4 +191,23 @@ void _swapNodeT(CNodeT** node1, CNodeT** node2) {
     temp2_node->data = temp_data;
 }
 
+void _swapNodeT(CNodeT** node1, CNodeT** node2) {
+    CNodeT* temp1_node = *node1;
+    CNodeT* temp2_node = *node2;
+    void* temp_data = temp1_node->data;
+    temp1_node->data = temp2_node->data;
+    temp2_node->data = temp_data;
+    CNodeT* temp_left_node = temp1_node->left,
+          * temp_right_node = temp1_node->right,
+          * temp_head_node = temp1_node->head;
+    temp1_node->left = temp2_node->left;
+    temp2_node->left = temp_left_node;
+    temp1_node->right = temp2_node->right;
+    temp2_node->right = temp_right_node;
+    temp1_node->head = temp2_node->head;
+    temp2_node->head = temp_head_node;
+    size_t temp_depth = temp1_node->depth;
+    temp1_node->depth = temp2_node->depth;
+    temp2_node->depth = temp_depth;
+}
 

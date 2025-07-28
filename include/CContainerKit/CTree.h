@@ -29,6 +29,7 @@ void* findDataFromTree(CTree* tree, void* find_data, bool (*compare)(void*, void
 void clearTree(CTree *tree, bool delete_data);
 
 size_t getDepthTree(CTree* tree);
+bool isTreeBalanced(CTree* tree);
 
 #define addFirstNodeToTree(tree, data)   insertNodeToTree(tree, NULL, false, data)
 

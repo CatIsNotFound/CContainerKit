@@ -19,7 +19,7 @@ static void ctree_test1(void) {
     insertNodeToTree(tree, tree->root->right, false, (void*)'G');
     removeNodeFromTree(tree, tree->root->right->left, true, false);
     removeNodeFromTree(tree, tree->root->right->right, true, false);
-    modifyFromNodeT(tree->root, (void *) 'R', false);
+    setDataFromNodeT(tree->root, (void *) 'R', false);
     printf("Tree Size: %zu, Depth: %zu\n", tree->size, getDepthTree(tree));
     printf("Preorder Numbers: ");
     forEachNodeFromTree(tree, PREORDER, print_char);
@@ -30,6 +30,7 @@ static void ctree_test1(void) {
     printf("Postorder Numbers: ");
     forEachNodeFromTree(tree, POSTORDER, print_char);
     printf("\n");
+    printf("Current tree is %sbalance!", (isTreeBalanced(tree) ? "" : "not "));
     destroyTree(tree, false);
 }
 

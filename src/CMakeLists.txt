@@ -31,6 +31,7 @@ add_library(${PROJECT_NAME} STATIC ${LIB_SOURCES}
         ../include/CContainerKit/CAlgorithm.h
         ../include/CContainerKit/CTree.h
         CTree.c
+        CAlgorithm.c
 )
 
 target_include_directories(${PROJECT_NAME}
