@@ -37,15 +37,15 @@ CVariant nodeData(CNode* node) {
 
 void nodeConnect(CNode* node1, CNode* node2) {
     if (!node1 || !node2) {
-        throwError("Connection Node: node1 or node2 is null.");
+        throwError("Node Error: node1 or node2 is null.");
         return;
     }
     if (node1->next) {
-        throwError("Connection Node: node1\'s next is already exist!");
+        throwError("Node Error: node1\'s next is already exist!");
         return;
     }
     if (node2->prev) {
-        throwError("Connection Node: node2\'s previous is already exist!");
+        throwError("Node Error: node2\'s previous is already exist!");
         return;
     }
     node2->prev = node1;
@@ -54,7 +54,7 @@ void nodeConnect(CNode* node1, CNode* node2) {
 
 void nodeRemoveOne(CNode *node) {
     if (!node) {
-        throwError("Disconnection Node: The specified node is not valid!");
+        throwError("Node Error: The specified node is not valid!");
         return;
     }
     destroyNode(node);
@@ -86,13 +86,23 @@ CNodeT *createNodeT(void *data) {
     new_node->head = NULL;
     new_node->left = NULL;
     new_node->right = NULL;
+    new_node->owner = NULL;
     new_node->depth = 1;
     return new_node;
 }
 
-bool destroyNodeT(CNodeT *node, bool delete_data) {
+bool destroyNodeT(CNodeT *node, void** data) {
     if (node) {
-        if (delete_data && node->data) {
+        if (data) *data = node->data;
+        free(node);
+        return true;
+    }
+    return false;
+}
+
+bool deleteNodeT(CNodeT* node) {
+    if (node) {
+        if (node->data) {
             free(node->data);
         }
         free(node);
@@ -119,22 +129,22 @@ void* getDataFromNodeT(CNodeT* node) {
 
 bool connectNodeT(CNodeT* root_node, CNodeT* sub_node, bool direction) {
     if (!root_node || !sub_node) {
-        throwError("Connect NodeT: The root node or sub node is null!");
+        throwError("NodeT Error: The root node or sub node is null!");
         return false;
     }
     if (sub_node->head) {
-        throwError("Connect NodeT: This child node has been connected by other nodes.");
+        throwError("NodeT Error: This child node has been connected by other nodes.");
         return false;
     }
     if (direction) {
         if (root_node->left) {
-            throwError("Connect NodeT: The left node of this node already exists!");
+            throwError("NodeT Error: The left node of this node already exists!");
             return false;
         }
         root_node->left = sub_node;
     } else {
         if (root_node->right) {
-            throwError("Connect NodeT: The right node of this node already exists!");
+            throwError("NodeT Error: The right node of this node already exists!");
             return false;
         }
         root_node->right = sub_node;
@@ -147,7 +157,7 @@ bool connectNodeT(CNodeT* root_node, CNodeT* sub_node, bool direction) {
 bool disconnectNodeT(CNodeT* node) {
     if (!node) return false;
     if (node->left && node->right) {
-        throwError("Can't disconnect the specified node!");
+        throwError("NodeT Error: Can't disconnect the specified node!");
         return false;
     }
     CNodeT* head = node->head;
@@ -171,7 +181,7 @@ bool disconnectNodeT(CNodeT* node) {
 void* releaseNodeT(CNodeT* node) {
     if (!node) return NULL;
     if (node->left || node->right) {
-        throwError("Release NodeT: Delete all child nodes under this node first!");
+        throwError("NodeT Error: Delete all child nodes under this node first!");
         return NULL;
     }
     CNodeT* head = node->head;
@@ -181,6 +191,20 @@ void* releaseNodeT(CNodeT* node) {
     free(node);
     node = NULL;
     return data;
+}
+
+static void _setOwner(CNodeT* node, CTree* tree) {
+    node->owner = tree;
+    if (node->left) _setOwner(node->left, tree);
+    if (node->right) _setOwner(node->right, tree);
+}
+
+void _setOwnerForEachNode(CNodeT *node, CTree *tree) {
+    if (!node || !tree) {
+        throwError("NodeT Error: The specified node or tree is not valid!");
+        return;
+    }
+    _setOwner(node, tree);
 }
 
 void _swapDataNodeT(CNodeT** node1, CNodeT** node2) {
@@ -206,8 +230,7 @@ void _swapNodeT(CNodeT** node1, CNodeT** node2) {
     temp2_node->right = temp_right_node;
     temp1_node->head = temp2_node->head;
     temp2_node->head = temp_head_node;
-    size_t temp_depth = temp1_node->depth;
-    temp1_node->depth = temp2_node->depth;
-    temp2_node->depth = temp_depth;
+    temp1_node->depth = temp1_node->head->depth + 1;
+    temp2_node->depth = temp2_node->head->depth + 1;
 }
 

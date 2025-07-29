@@ -21,22 +21,28 @@ void _nodeSwap(CNode** node1, CNode** node2);
 
 #define nodeSwap(node1, node2)                     _nodeSwap(&node1, &node2)
 
-typedef struct NodeT {
+typedef struct NodeT CNodeT;
+#include "CTree.h"
+
+struct NodeT {
     void* data;
     struct NodeT* head;
     struct NodeT* left;
     struct NodeT* right;
+    CTree* owner;
     size_t depth;
-} CNodeT;
+};
 
-CNodeT* createNodeT(void *data);
-bool destroyNodeT(CNodeT *node, bool delete_data);
+CNodeT* createNodeT(void* data);
+
+bool destroyNodeT(CNodeT *node, void **data);
+bool deleteNodeT(CNodeT* node);
 void setDataFromNodeT(CNodeT* node, void* data, bool delete_data);
 void* getDataFromNodeT(CNodeT* node);
 bool connectNodeT(CNodeT* root_node, CNodeT* sub_node, bool direction);
-
 bool disconnectNodeT(CNodeT* node);
 void* releaseNodeT(CNodeT* node);
+void _setOwnerForEachNode(CNodeT *node, CTree *tree);
 void _swapDataNodeT(CNodeT** node1, CNodeT** node2);
 void _swapNodeT(CNodeT** node1, CNodeT** node2);
 
