@@ -1,6 +1,14 @@
 # CContainerKit
 
-基于 C11 标准的 C 语言容器集合。
+基于 C 语言的扩展型容器集合库，包含常见的静态数组、动态数组、栈、队列、动态链表、通用二叉树等数据结构。适合作为新手学习 C/C++。
+
+此库为个人学习数据结构的项目，会存在问题和不足之处。
+
+本作者非常欢迎您在 [Discussions](https://github.com/CatIsNotFound/CContainerKit/discussions) 或 [Issues](https://github.com/CatIsNotFound/CContainerKit/issues) 中提出问题或提供建议，以帮助作者改进此项目。
+
+> Note: 
+> 
+> 使用 Gitee 查看此仓库的用户，可以转到 [Issues](https://gitee.com/CatIsNotFound/ccontainer-kit/issues) 中提出问题或提供建议。
 
 ## 特性
 
@@ -16,7 +24,7 @@
 
 访问 [APIs 页面](https://catisnotfound.github.io/CContainerKit-Wiki/zh/apis/)以查看所有支持的 API。
 
-## 当前完成进度情况
+## 基本已实现容器完成情况
 
 | 容器名称 | 完成进度 | 描述              |
 |----------|----------|-----------------|
@@ -27,15 +35,16 @@
 | CDeque | 75% | 队列 (基于 CVector) |
 | CLinkedList | 80% | 链表              |
 
-## 未来计划完成的容器
+## 正在努力实现的容器
 
-- CHashMap：哈希表。
-- CSet：集合。
+- CTree：通用二叉树
+- CMap：映射表
+- CSet：集合
 
 ## 注意
 
-- 此项目是个人学习项目，可能存在一些问题和不足。
-- 欢迎在 Issues 中提问或提供建议，共同改进项目。
+- 本项目中的所有代码几乎没有添加任何的注释，若阅读代码有所困难，请借助此 [Wiki](https://catisnotfound.github.io/CContainerKit-Wiki/) 配合使用。
+
 
 ## 许可协议
 
