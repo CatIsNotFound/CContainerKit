@@ -2,13 +2,13 @@
 #include "CContainerKit/CString.h"
 #include <ctype.h>
 
-char* _cstrset(char *s, int c) {
+static char* _cstrset(char *s, int c) {
     size_t len = strlen(s);
     memset(s, c, len);
     return s;
 }
 
-bool _cstrCaseIsEqual(const char* s1, const char* s2) {
+static bool _cstrCaseIsEqual(const char* s1, const char* s2) {
     if (strlen(s1) != strlen(s2)) return false;
 
     while (*s1 != '\0') {
@@ -19,11 +19,11 @@ bool _cstrCaseIsEqual(const char* s1, const char* s2) {
     return true;
 }
 
-void _strFillZero(CString* string) {
+static void _strFillZero(CString* string) {
     _cstrset(string->data, 0);
 }
 
-void _allocateData(CString* string, size_t new_length) {
+static void _allocateData(CString* string, size_t new_length) {
     string->data = (char *) calloc(new_length + 1, sizeof(char));
     _cstrset(string->data, 0);
     string->capacity = new_length + 1;
@@ -64,7 +64,7 @@ CString varToString(CVariant variant) {
     return new_str;
 }
 
-void _destroyData(CString* string) {
+static void _destroyData(CString* string) {
     if (string->data) {
         free(string->data);
     }
@@ -206,6 +206,14 @@ void _strLower(CString* string) {
         if (string->data[i] >= 'A' && string->data[i] <= 'Z') {
             string->data[i] += ' ';
         }
+    }
+}
+
+void _strReverse(CString* string) {
+    for (uint32_t i = 0; i < string->length / 2; ++i) {
+        char temp = string->data[i];
+        string->data[i] = string->data[string->length - i - 1];
+        string->data[string->length - i - 1] = temp;
     }
 }
 

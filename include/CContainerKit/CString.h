@@ -24,6 +24,7 @@ bool _strIsEqual(CString* string, const char* buffer, bool case_sensitive);
 bool _strIsContain(CString* string, const char* buffer, bool case_sensitive);
 void _strUpper(CString* string);
 void _strLower(CString* string);
+void _strReverse(CString* string);
 CVector _splitToVector(CString* str, const char split);
 CVector _strToVector(CString* str);
 
@@ -42,6 +43,7 @@ CVector _strToVector(CString* str);
 #define stringIsContain(string, buffer, case_sensitive) _strIsContain(&string, buffer, case_sensitive)
 #define stringUpper(string)                             _strUpper(&string)
 #define stringLower(string)                             _strLower(&string)
+#define stringReverse(string)                           _strReverse(&string)
 #define stringSplit(string, char)                       _splitToVector(&string, char)
 #define stringToVector(string)                          _strToVector(&string)
 

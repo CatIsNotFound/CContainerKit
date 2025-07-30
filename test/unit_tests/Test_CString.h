@@ -59,6 +59,8 @@ static void cstr_test3(void) {
     printf("Upper String: %s\n", str.data);
     stringLower(str);
     printf("Lower String: %s\n", str.data);
+    stringReverse(str);
+    printf("Reversed String: %s\n", str.data);
     destroyString(str);
 }
 
