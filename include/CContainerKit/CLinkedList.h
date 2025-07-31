@@ -30,6 +30,8 @@ CNode *_findNodeFromList(CLinkedList *linked_list, CVariant *variant, bool (*com
 CNode *_rfindNodeFromList(CLinkedList *linked_list, CVariant *variant, bool (*compare)(CVariant, CVariant));
 
 void _reverseList(CLinkedList* linked_list);
+CLinkedList _splitList(CLinkedList* linkedList, CNode* index_node, size_t count);
+void _mergeList(CLinkedList* main_list, CNode* index_node, CLinkedList* sub_list);
 
 #define destroyList(linked_list)                            _destroyList(&linked_list)
 #define insertNodeToList(linked_list, index_node, add_node) _insertNodeToList(&linked_list, index_node, add_node)
@@ -45,6 +47,8 @@ void _reverseList(CLinkedList* linked_list);
 #define findOneFromListCmp(list, var, cmp)                  _findNodeFromList(&list, var, cmp)
 #define rfindOneFromListCmp(list, var, cmp)                 _rfindNodeFromList(&list, var, cmp)
 #define reverseList(list)                                   _reverseList(&list)
+#define splitList(list, index_node, count)                  _splitList(&list, index_node, count)
+#define mergeList(main_list, index_node, sub_list)          _mergeList(&main_list, index_node, &sub_list)
 
 #define modifyNodeDataFromList(linked_list, depth, new_var, del_old_var, reverse) \
     CNode* _ret_node = _getNodeFromList(&linked_list, depth, reverse);            \

@@ -171,3 +171,52 @@ void _reverseList(CLinkedList* linked_list) {
     }
 }
 
+CLinkedList _splitList(CLinkedList* linkedList, CNode* index_node, size_t count) {
+    if (!linkedList || !index_node) return createEmptyList();
+    CLinkedList new_sub_list;
+    new_sub_list.head = index_node;
+    CNode* prev = index_node->prev, *next = NULL;
+    if (count) {
+        size_t r_cnt = 0;
+        CNode* tail = index_node;
+        index_node->prev = NULL;
+        for (; r_cnt < count - 1; ++r_cnt) {
+            if (tail->next) tail = tail->next; else break;
+        }
+        new_sub_list.tail = tail;
+        new_sub_list.length = r_cnt + 1;
+    } else {
+        size_t r_cnt = 1;
+        CNode* tail = index_node;
+        index_node->prev = NULL;
+        while (tail->next) {
+            tail = tail->next;
+            r_cnt += 1;
+        }
+        new_sub_list.tail = tail;
+        new_sub_list.length = r_cnt;
+    }
+    next = new_sub_list.tail->next;
+    prev->next = next;
+    if (next) {
+        next->prev = prev;
+    } else {
+        linkedList->tail = prev;
+    }
+    linkedList->length -= new_sub_list.length;
+    return new_sub_list;
+}
+
+void _mergeList(CLinkedList* main_list, CNode* index_node, CLinkedList* sub_list) {
+    if (!main_list || !index_node || !sub_list) return;
+    CNode* next_node = index_node->next;
+    index_node->next = sub_list->head;
+    sub_list->head->prev = index_node;
+    if (next_node) {
+        next_node->prev = sub_list->tail;
+        sub_list->tail->next = next_node;
+    }
+    sub_list->head = NULL;
+    main_list->length += sub_list->length;
+    _destroyList(sub_list);
+}

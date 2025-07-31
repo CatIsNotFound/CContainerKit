@@ -71,7 +71,7 @@ static void clnklst_test2(void) {
 static void clnklst_test3(void) {
     Date d = {2025, 7, 22};
     float f = 3.1415926f;
-    printf("\n[Test 2]\n");
+    printf("\n[Test 3]\n");
     CNode *node1 = createNode(varInt(80)),
             *node2 = createNode(varString("Node")),
             *node3 = createNode(varStruct(d, "Date"));
@@ -137,12 +137,54 @@ static void clnklst_test3(void) {
 
 }
 
+
+// Test 4: Split and merge list
+static void clnklst_test4(void) {
+    printf("\n[Test 4]\n");
+    Date d = {2025, 7, 22};
+    float f = 3.1415926f;
+    CLinkedList list = createList(6, varUChar('X'), varUInt(66), varInt(-123),
+                                  varFloat(f), varString("Node"), varStruct(d, "Date"));
+    printf("Origin list: ");
+    CNode* temp_node = NULL;
+    forEachListNodePtr(temp_node, list) {
+        CVariant v = temp_node->data;
+        printf("[%zu] ", _idx);
+        printVarData(v);
+        printf(" ");
+    }
+    CLinkedList sub_list = splitList(list, getNodeFromList(list, 2, false), 0);
+    printf("\nSplitted list: ");
+    forEachListNodePtr(temp_node, list) {
+        CVariant v = temp_node->data;
+        printf("[%zu] ", _idx);
+        printVarData(v);
+        printf(" ");
+    }
+    printf("\nSub list: ");
+    forEachListNodePtr(temp_node, sub_list) {
+        CVariant v = temp_node->data;
+        printf("[%zu] ", _idx);
+        printVarData(v);
+        printf(" ");
+    }
+    mergeList(list, list.tail, sub_list);
+    printf("\nMerged list: ");
+    forEachListNodePtr(temp_node, list) {
+        CVariant v = temp_node->data;
+        printf("[%zu] ", _idx);
+        printVarData(v);
+        printf(" ");
+    }
+    destroyList(list);
+}
+
 static void CLinkedList_Test(void) {
     printf("=== CLinkedList Test ===\n");
     clnklst_test1();
     clnklst_test2();
     clnklst_test3();
-
+    clnklst_test4();
 }
 
 #endif //CCONTAINERKIT_TEST_CLINKEDLIST_H

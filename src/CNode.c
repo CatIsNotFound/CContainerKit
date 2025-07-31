@@ -216,21 +216,51 @@ void _swapDataNodeT(CNodeT** node1, CNodeT** node2) {
 }
 
 void _swapNodeT(CNodeT** node1, CNodeT** node2) {
+    if (!node1 || !node2 || !*node1 || !*node2) return; 
     CNodeT* temp1_node = *node1;
     CNodeT* temp2_node = *node2;
+    CTree* temp_owner = temp1_node->owner;
+    temp1_node->owner = temp2_node->owner;
+    temp2_node->owner = temp_owner; 
+
     void* temp_data = temp1_node->data;
     temp1_node->data = temp2_node->data;
     temp2_node->data = temp_data;
-    CNodeT* temp_left_node = temp1_node->left,
-          * temp_right_node = temp1_node->right,
-          * temp_head_node = temp1_node->head;
+
+    CNodeT* temp_left = temp1_node->left;
+    CNodeT* temp_right = temp1_node->right;
     temp1_node->left = temp2_node->left;
-    temp2_node->left = temp_left_node;
     temp1_node->right = temp2_node->right;
-    temp2_node->right = temp_right_node;
+    temp2_node->left = temp_left;
+    temp2_node->right = temp_right;
+
+    if (temp1_node->left) temp1_node->left->head = temp1_node;
+    if (temp1_node->right) temp1_node->right->head = temp1_node;
+    if (temp2_node->left) temp2_node->left->head = temp2_node;
+    if (temp2_node->right) temp2_node->right->head = temp2_node;
+
+    CNodeT* temp_head = temp1_node->head;
     temp1_node->head = temp2_node->head;
-    temp2_node->head = temp_head_node;
-    temp1_node->depth = temp1_node->head->depth + 1;
-    temp2_node->depth = temp2_node->head->depth + 1;
+    temp2_node->head = temp_head;
+
+    if (temp1_node->head) {
+        if (temp1_node->head->left == temp2_node) temp1_node->head->left = temp1_node;
+        else if (temp1_node->head->right == temp2_node) temp1_node->head->right = temp1_node;
+    } else {
+        if (temp1_node->owner) temp1_node->owner->root = temp1_node;
+    }
+
+    if (temp2_node->head) {
+        if (temp2_node->head->left == temp1_node) temp2_node->head->left = temp2_node;
+        else if (temp2_node->head->right == temp1_node) temp2_node->head->right = temp2_node;
+    } else {
+        if (temp2_node->owner) temp2_node->owner->root = temp2_node;
+    }
+
+    temp1_node->depth = temp1_node->head ? (temp1_node->head->depth + 1) : 0;
+    temp2_node->depth = temp2_node->head ? (temp2_node->head->depth + 1) : 0;
+
+    if (!temp1_node->head && temp1_node->owner) updateTree(temp1_node->owner);
+    if (!temp2_node->head && temp2_node->owner) updateTree(temp2_node->owner);
 }
 
